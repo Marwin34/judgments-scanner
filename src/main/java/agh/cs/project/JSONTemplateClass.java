@@ -4,7 +4,6 @@ import java.util.List;
 
 public class JSONTemplateClass {
 
-    private List<Object> links;
     private List<Case> items;
 
     @Override
