@@ -8,19 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONLoader {
-    private Gson importer = new Gson();
+    private Gson gson = new Gson();
 
-    private List<Case> cases = new ArrayList<Case>();
+    private List<JSONTemplateClass> cases = new ArrayList<JSONTemplateClass>();
 
     public JSONLoader(){
         //empty
     }
 
-    public void load(){
-        try{
-            cases.add(importer.fromJson(new FileReader("C:\\Users\\Marcin\\Desktop\\dziennik.json"), Case.class));
-        }catch (FileNotFoundException ex){
-            System.out.println(ex.getMessage());
-        }
+    public void load() throws FileNotFoundException{
+        cases.add(gson.fromJson(new FileReader("C:\\Users\\Marcin\\Desktop\\judgments.json"), JSONTemplateClass.class));
+        System.out.println(cases.get(0));
+       //System.out.println(gson.fromJson(new FileReader("C:\\Users\\Marcin\\Desktop\\judgments.json"), Object.class));
     }
 }

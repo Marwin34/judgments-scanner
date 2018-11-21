@@ -17,11 +17,16 @@ public class Case {
     private List<String> legalBases;
     private List<Regulation> referencedRegulations;
     private List<String> keywords;
-    private List<String> referencedCourtCases;
+    private List<ReferencedCourtCase> referencedCourtCases;
     private String receiptDate;
     private String meansOfAppeal;
     private String judgmentResult;
     private List<String> lowerCourtJudges;
     private List<String> dissentingOptions;
     private String judgmentDate;
+
+    @Override
+    public String toString(){
+        return id + ": " + judgmentType + ", " + judgmentDate;
+    }
 }
