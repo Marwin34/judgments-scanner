@@ -2,7 +2,7 @@ package agh.cs.project;
 
 import java.util.List;
 
-public class Case {
+public class Court {
 
     private int id;
     private String courtType;

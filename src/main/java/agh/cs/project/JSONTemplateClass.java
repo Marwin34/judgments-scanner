@@ -1,15 +1,13 @@
 package agh.cs.project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JSONTemplateClass {
 
-    private List<Case> items;
+    private List<Court> items = new ArrayList<Court>();
 
-    @Override
-    public String toString(){
-        if(items != null)
-            return items.get(0).toString();
-        else return "null :(";
+    public int size(){
+        return items.size();
     }
 }
