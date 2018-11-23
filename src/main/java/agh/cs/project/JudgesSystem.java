@@ -5,9 +5,14 @@ import java.io.FileNotFoundException;
 public class JudgesSystem {
 
     public static void main(String[] args){
-        JSONLoader loader = new JSONLoader();
+        JSONParser parser = new JSONParser();
         try{
-            loader.load("C:\\Users\\Public\\Documents\\");
+            if(!parser.load("C:\\Users\\Public\\Documents\\")){
+                System.out.println("Cant load files!");
+            }else {
+                parser.fetchAll();
+                System.out.println(parser.rubrums.get("I C 93/13"));
+            }
         }catch (FileNotFoundException ex){
             System.out.println(ex.getMessage());
         }

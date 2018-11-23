@@ -1,6 +1,6 @@
 package agh.cs.project;
 
-public class Regulation {
+public class JSONRegulation {
 
     private String journalTitle;
     private int journalNo;

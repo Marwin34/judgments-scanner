@@ -1,6 +1,6 @@
 package agh.cs.project;
 
-public class Source {
+public class JSONSource {
 
     private String code;
     private String judgmentUrl;

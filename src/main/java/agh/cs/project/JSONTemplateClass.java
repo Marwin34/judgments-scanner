@@ -5,7 +5,7 @@ import java.util.List;
 
 public class JSONTemplateClass {
 
-    public List<Court> items = new ArrayList<Court>();
+    public List<JSONJudgment> items = new ArrayList<JSONJudgment>();
 
     public int size(){
         return items.size();

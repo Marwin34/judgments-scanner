@@ -2,22 +2,22 @@ package agh.cs.project;
 
 import java.util.List;
 
-public class Court {
+public class JSONJudgment {
 
     private int id;
     private String courtType;
-    private List<CourtCase> courtCases;
+    private List<JSONCourtCase> courtCases;
     private String judgmentType;
-    private List<Judge> judges;
-    private Source source;
+    private List<JSONJudge> judges;
+    private JSONSource source;
     private List<String> courtReporters;
     private String decision;
     private String summary;
     private String textContent;
     private List<String> legalBases;
-    private List<Regulation> referencedRegulations;
+    private List<JSONRegulation> referencedRegulations;
     private List<String> keywords;
-    private List<ReferencedCourtCase> referencedCourtCases;
+    private List<JSONReferencedCourtCase> referencedCourtCases;
     private String receiptDate;
     private String meansOfAppeal;
     private String judgmentResult;
@@ -28,5 +28,13 @@ public class Court {
     @Override
     public String toString(){
         return id + ": " + judgmentType + ", " + judgmentDate;
+    }
+
+    public String getSignature(){
+        return courtCases.get(0).getCaseNumber();
+    }
+
+    public JudgmentRubrum getRubrum(){
+        return new JudgmentRubrum(getSignature(), judgmentDate, courtType, judges);
     }
 }
