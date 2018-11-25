@@ -12,6 +12,9 @@ public class JudgesSystem {
             }else {
                 parser.fetchAll();
                 System.out.println(parser.rubrums.get("I C 93/13"));
+                for(Judge judge : parser.judges.values()){
+                    System.out.println(judge);
+                }
             }
         }catch (FileNotFoundException ex){
             System.out.println(ex.getMessage());

@@ -1,6 +1,8 @@
 package agh.cs.project;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JSONJudgment {
 
@@ -24,6 +26,14 @@ public class JSONJudgment {
     private List<String> lowerCourtJudges;
     private List<String> dissentingOptions;
     private String judgmentDate;
+
+    private JudgeFactory factory = new JudgeFactory();
+
+    public void fetchJudges(Map<String, Judge> judges){
+        for(JSONJudge judge : this.judges){
+            factory.create(judge, judges);
+        }
+    }
 
     @Override
     public String toString(){

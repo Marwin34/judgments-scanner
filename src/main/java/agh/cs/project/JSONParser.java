@@ -8,15 +8,20 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JSONParser {
     private Gson gson = new Gson();
 
     private List<JSONJudgment> loadedJSONJudgments;
 
-    public HashMap<String, JudgmentRubrum> rubrums = new HashMap<String, JudgmentRubrum>();
+    public Map<String, Judge> judges;
+
+    public HashMap<String, JudgmentRubrum> rubrums;
 
     public JSONParser(){
+        rubrums = new HashMap<String, JudgmentRubrum>();
+        judges = new HashMap<String, Judge>();
         loadedJSONJudgments = new ArrayList<JSONJudgment>();
     }
 
@@ -39,6 +44,7 @@ public class JSONParser {
 
     public void fetchAll(){
         for (JSONJudgment judgment : loadedJSONJudgments){
+            judgment.fetchJudges(judges);
             rubrums.put(judgment.getSignature(), judgment.getRubrum());
         }
     }
