@@ -15,6 +15,7 @@ public class JudgesSystem {
                 for(Judge judge : parser.judges.values()){
                     System.out.println(judge);
                 }
+                System.out.println(parser.getTop10Judges());
             }
         }catch (FileNotFoundException ex){
             System.out.println(ex.getMessage());

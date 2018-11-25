@@ -5,10 +5,7 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JSONParser {
     private Gson gson = new Gson();
@@ -46,6 +43,28 @@ public class JSONParser {
         for (JSONJudgment judgment : loadedJSONJudgments){
             judgments.put(judgment.getSignature(), new Judgment(judgment, judges));
         }
+    }
+
+    public String getTop10Judges(){
+        StringBuilder bob = new StringBuilder();
+
+        List<Judge> judgesByJudgments = new ArrayList<Judge>(judges.values());
+        Collections.sort(judgesByJudgments, new Comparator<Judge>() {
+            public int compare(Judge o1, Judge o2) {
+                return o2.getNumberOfCases() - o1.getNumberOfCases(); // Descending.
+            }
+        });
+
+        for(int i = 0; i < 10; i++){
+            Judge judge = judgesByJudgments.get(i);
+            bob.append(i + 1);
+            bob.append(": ");
+            bob.append(judge.getName());
+            bob.append(": ");
+            bob.append(judge.getNumberOfCases());
+            bob.append("\n");
+        }
+        return bob.toString();
     }
 
     private boolean isEmpty(String path){

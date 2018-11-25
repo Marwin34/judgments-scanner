@@ -2,7 +2,7 @@ package agh.cs.project;
 
 import java.util.List;
 
-public class Judge {
+public class Judge{
 
     private String name;
     //private String function;
@@ -52,6 +52,14 @@ public class Judge {
     @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
+    }
+
+    public int getNumberOfCases(){
+        return numberOfCases;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public void incrementCase(){
