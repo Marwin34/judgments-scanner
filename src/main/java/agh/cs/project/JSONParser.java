@@ -17,10 +17,10 @@ public class JSONParser {
 
     public Map<String, Judge> judges;
 
-    public HashMap<String, JudgmentRubrum> rubrums;
+    public HashMap<String, Judgment> judgments;
 
     public JSONParser(){
-        rubrums = new HashMap<String, JudgmentRubrum>();
+        judgments = new HashMap<String, Judgment>();
         judges = new HashMap<String, Judge>();
         loadedJSONJudgments = new ArrayList<JSONJudgment>();
     }
@@ -44,14 +44,7 @@ public class JSONParser {
 
     public void fetchAll(){
         for (JSONJudgment judgment : loadedJSONJudgments){
-            judgment.fetchJudges(judges);
-            rubrums.put(judgment.getSignature(), judgment.getRubrum());
-        }
-    }
-
-    public void displayContent(){
-        for(JSONJudgment object : loadedJSONJudgments){
-            System.out.println(object);
+            judgments.put(judgment.getSignature(), new Judgment(judgment, judges));
         }
     }
 

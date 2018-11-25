@@ -1,26 +1,32 @@
 package agh.cs.project;
 
-import javafx.util.Builder;
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class JudgmentRubrum {
+public class Judgment {
 
     private String signature;
     private String judgmentDate;
     private String courtType;
     private ArrayList<Judge> judges;
+    private String justification;
 
+    public Judgment(JSONJudgment judgment, Map<String, Judge> judges){
 
-    public JudgmentRubrum(String signature, String judgmentDate, String courtType, List<JSONJudge> judges){
-        this.signature = signature;
-        this.courtType = courtType;
-        this.judgmentDate = judgmentDate;
+        JudgeFactory judgeFactory = new JudgeFactory();
+
+        signature = judgment.getSignature();
+        judgmentDate = judgment.getJudgmentDate();
+        courtType = judgment.getCourtType();
+        justification = judgment.getJustification();
+
         this.judges = new ArrayList<Judge>();
-        for(JSONJudge judge : judges){
-            this.judges.add(new Judge(judge));
+
+        List<JSONJudge> JSONJudges = judgment.getJudges();
+
+        for(JSONJudge JSONjudge : JSONJudges){
+            this.judges.add(judgeFactory.create(JSONjudge, judges));
         }
     }
 
@@ -29,9 +35,9 @@ public class JudgmentRubrum {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        JudgmentRubrum judgmentRubrum = (JudgmentRubrum) o;
+        Judgment judgment = (Judgment) o;
 
-        return signature.equals(judgmentRubrum.signature);
+        return signature.equals(judgment.signature);
     }
 
     @Override
@@ -39,8 +45,7 @@ public class JudgmentRubrum {
         return signature.hashCode();
     }
 
-    @Override
-    public String toString(){
+    public String showRubrum(){
         StringBuilder bob = new StringBuilder(signature);
         bob.append(" : ");
         bob.append(courtType);
@@ -54,5 +59,9 @@ public class JudgmentRubrum {
         }
 
         return bob.toString();
+    }
+
+    public String showJustification(){
+        return justification;
     }
 }

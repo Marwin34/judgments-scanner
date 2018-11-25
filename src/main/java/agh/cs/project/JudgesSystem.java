@@ -11,7 +11,7 @@ public class JudgesSystem {
                 System.out.println("Cant load files!");
             }else {
                 parser.fetchAll();
-                System.out.println(parser.rubrums.get("I C 93/13"));
+                System.out.println(parser.judgments.get("I C 93/13").showRubrum());
                 for(Judge judge : parser.judges.values()){
                     System.out.println(judge);
                 }

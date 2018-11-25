@@ -3,12 +3,15 @@ package agh.cs.project;
 import java.util.Map;
 
 public class JudgeFactory {
-    public void create(JSONJudge judge, Map<String, Judge> judges){
+    public Judge create(JSONJudge judge, Map<String, Judge> judges){
         if(judges.containsKey(judge.getName())){
             Judge existingJudge = judges.get(judge.getName());
             existingJudge.incrementCase();
+            return existingJudge;
         }else {
-            judges.put(judge.getName(), new Judge(judge));
+            Judge newJudge = new Judge(judge);
+            judges.put(judge.getName(), newJudge);
+            return newJudge;
         }
     }
 }

@@ -1,6 +1,5 @@
 package agh.cs.project;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +43,19 @@ public class JSONJudgment {
         return courtCases.get(0).getCaseNumber();
     }
 
-    public JudgmentRubrum getRubrum(){
-        return new JudgmentRubrum(getSignature(), judgmentDate, courtType, judges);
+    public String getJudgmentDate(){
+        return  judgmentDate;
+    }
+
+    public String getJustification(){
+        return summary;
+    }
+
+    public List<JSONJudge> getJudges(){
+        return judges;
+    }
+
+    public String getCourtType(){
+        return courtType;
     }
 }
