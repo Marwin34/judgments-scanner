@@ -7,5 +7,21 @@ public class JSONRegulation {
     private int journalYear;
     private int journalEntry;
     private String text;
+
+    public String getJournalTitle() {
+        return journalTitle;
+    }
+
+    public int getJournalNo() {
+        return journalNo;
+    }
+
+    public int getJournalYear() {
+        return journalYear;
+    }
+
+    public int getJournalEntry() {
+        return journalEntry;
+    }
 }
 

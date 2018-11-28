@@ -48,7 +48,7 @@ public class JSONJudgment {
     }
 
     public String getJustification(){
-        return summary;
+        return textContent;
     }
 
     public List<JSONJudge> getJudges(){
@@ -57,5 +57,9 @@ public class JSONJudgment {
 
     public String getCourtType(){
         return courtType;
+    }
+
+    public List<JSONRegulation> getReferencedRegulations() {
+        return referencedRegulations;
     }
 }

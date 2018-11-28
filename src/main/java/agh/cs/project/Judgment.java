@@ -47,13 +47,11 @@ public class Judgment {
 
     public String showRubrum(){
         StringBuilder bob = new StringBuilder(signature);
-        bob.append(" : ");
-        bob.append(courtType);
-        bob.append(" : ");
-        bob.append(judgmentDate);
-        bob.append(" : judges = ");
+        String judgmentRubrum = signature + " : " + courtType + " : " + judgmentDate + " : judges = ";
 
-        for(Judge judge : judges){
+        bob.append(judgmentRubrum);
+
+        for(Judge judge : judges) {
             bob.append(judge.toString());
             bob.append("; ");
         }
