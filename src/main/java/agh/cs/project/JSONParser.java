@@ -20,6 +20,10 @@ public class JSONParser {
 
     public HashMap<String, Judgment> judgments;
 
+    private HashMap<String, Integer> judgmentJudgesStats;
+
+    private Map<String, Integer> judgmentspPerMonth;
+
 
     public JSONParser() {
         judgments = new HashMap<String, Judgment>();
@@ -27,6 +31,8 @@ public class JSONParser {
         loadedJSONJudgments = new ArrayList<JSONJudgment>();
         courts = new ArrayList<Court>();
         regulations = new HashMap<Integer, ReferencedRegulation>();
+        judgmentJudgesStats = new HashMap<String, Integer>();
+        judgmentspPerMonth = new HashMap<String, Integer>();
     }
 
     public boolean load(String path) throws FileNotFoundException {
@@ -50,12 +56,58 @@ public class JSONParser {
         for (JSONJudgment judgment : loadedJSONJudgments) {
             createCourt(judgment.getCourtType(), courts);
 
+            addStatistics(judgment);
+
+            createMonthlyStatistics(judgment);
+
             for(JSONRegulation JSONregulation : judgment.getReferencedRegulations()){
                 createRegulation(JSONregulation, regulations);
             }
 
             judgments.put(judgment.getSignature(), new Judgment(judgment, judges));
         }
+    }
+
+    private void addStatistics(JSONJudgment judgment){
+        judgmentJudgesStats.put(judgment.getSignature(), judgment.numberOfJudges());
+    }
+
+    public String getJudgesToJudgment(){
+        int min = 0, avg = 0, max = 0;
+
+        min = Collections.min(judgmentJudgesStats.values());
+
+        for(Integer value : judgmentJudgesStats.values()){
+            avg += value;
+        }
+        avg /= judgmentJudgesStats.size();
+
+        max = Collections.max(judgmentJudgesStats.values());
+
+        return "Najmniejsza liczba sedziow w orzeczeniu to: " + min + "natomiast najwieksza liczba swedziow " +
+                "przypadajacych na orzeczenie to: " + max + ". Srednia liczba sedziow na orzeczenie: " + avg + ".";
+    }
+
+    private void createMonthlyStatistics(JSONJudgment judgment){
+        String id = judgment.getJudgmentDate().split("-")[1];
+        Integer value = judgmentspPerMonth.get(id);
+
+        if(value == null){
+            judgmentspPerMonth.put(id, 1);
+        }else{
+            int tmp = judgmentspPerMonth.get(id);
+            judgmentJudgesStats.remove(id);
+            judgmentspPerMonth.put(id, tmp + 1);
+        }
+    }
+
+    public String monthStats(){
+        StringBuilder bob = new StringBuilder();
+        for (Map.Entry entry : judgmentspPerMonth.entrySet()){
+            String toAppend = entry.getKey() + ": " + entry.getValue() + " orzeczeń.\n";
+            bob.append(toAppend);
+        }
+        return bob.toString();
     }
 
     public String getTop10Judges() {

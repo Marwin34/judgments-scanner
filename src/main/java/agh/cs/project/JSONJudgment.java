@@ -62,4 +62,9 @@ public class JSONJudgment {
     public List<JSONRegulation> getReferencedRegulations() {
         return referencedRegulations;
     }
+
+    public int numberOfJudges(){
+        return judges.size();
+    }
+
 }

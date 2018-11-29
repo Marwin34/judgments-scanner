@@ -16,6 +16,8 @@ public class JudgesSystem {
                 System.out.println(parser.getTop10Judges());
                 System.out.println(parser.getCourtsStatistics());
                 System.out.println(parser.getTop10Regulations());
+                System.out.println(parser.getJudgesToJudgment());
+                System.out.println(parser.monthStats());
             }
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
