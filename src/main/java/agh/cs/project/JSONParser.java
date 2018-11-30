@@ -16,10 +16,13 @@ public class JSONParser {
 
     public HashMap<String, Judgment> judgments;
 
+    Statistics statisticsGenerator;
+
     public JSONParser() {
         judgments = new HashMap<String, Judgment>();
         judges = new HashMap<String, Judge>();
         loadedJSONJudgments = new ArrayList<JSONJudgment>();
+        statisticsGenerator = new Statistics();
     }
 
     public boolean load(String path) throws FileNotFoundException {
@@ -41,49 +44,10 @@ public class JSONParser {
 
     public void fetchAll() {
         for (JSONJudgment judgment : loadedJSONJudgments) {
-
             judgments.put(judgment.getSignature(), new Judgment(judgment, judges));
         }
-    }
 
-    public String getTop10Judges() {
-        StringBuilder bob = new StringBuilder();
-
-        List<Judge> judgesByJudgments = new ArrayList<Judge>(judges.values());
-        Collections.sort(judgesByJudgments, new Comparator<Judge>() {
-            public int compare(Judge o1, Judge o2) {
-                return o2.getNumberOfCases() - o1.getNumberOfCases(); // Descending.
-            }
-        });
-
-        for (int i = 0; i < 10; i++) {
-            Judge judge = judgesByJudgments.get(i);
-            String judgeStats = i + 1 + ": " + judge.getName() + ": " + judge.getNumberOfCases() + "\n";
-            bob.append(judgeStats);
-        }
-        return bob.toString();
-    }
-
-    private void createCourt(String courtType, ArrayList<Court> existingCourts){
-        Court newCourt = new Court(courtType);
-
-        for(Court court : existingCourts){
-            if(court.equals(newCourt)) {
-                court.incrementNumberOfJudgments();
-                return;
-            }
-        }
-        existingCourts.add(newCourt);
-    }
-
-    private void createRegulation(JSONRegulation regulation, Map<Integer, ReferencedRegulation> existingRegulations){
-        ReferencedRegulation newRegulation = new ReferencedRegulation(regulation);
-
-        if(existingRegulations.containsValue(newRegulation)){
-            existingRegulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
-        }else{
-            existingRegulations.put(newRegulation.hashCode(), newRegulation);
-        }
+        statisticsGenerator.load(loadedJSONJudgments, judges);
     }
 
     private boolean isEmpty(String path) {

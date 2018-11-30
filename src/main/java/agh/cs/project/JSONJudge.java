@@ -15,4 +15,5 @@ public class JSONJudge {
     public List<String> getSpecialRoles(){
         return specialRoles;
     }
+
 }
