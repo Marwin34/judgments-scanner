@@ -1,5 +1,8 @@
 package agh.cs.project;
 
+import agh.cs.project.JSONClasses.JSONJudge;
+import agh.cs.project.JSONClasses.JSONJudgment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

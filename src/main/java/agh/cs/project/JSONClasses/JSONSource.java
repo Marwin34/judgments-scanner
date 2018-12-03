@@ -1,4 +1,4 @@
-package agh.cs.project;
+package agh.cs.project.JSONClasses;
 
 public class JSONSource {
 

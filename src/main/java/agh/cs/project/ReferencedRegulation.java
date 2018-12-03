@@ -1,5 +1,7 @@
 package agh.cs.project;
 
+import agh.cs.project.JSONClasses.JSONRegulation;
+
 public class ReferencedRegulation {
 
     private String journalTitle;

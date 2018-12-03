@@ -17,26 +17,28 @@ public class JudgesSystem {
     public static void main(String[] args) throws IOException {
 
         //TODO - observer for judges
+        //TODO - zapoznaj sie z MVC i command
         JSONParser parser = new JSONParser();
 
         try {
             if (!parser.load("C:\\Users\\Public\\Documents\\")) {
                 System.out.println("Cant load files!");
+                System.exit(0);
             } else {
                 parser.fetchAll();
             }
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
+            System.exit(0);
         }
 
         Map<String, ICommand> commands = new HashMap<String, ICommand>();
 
-        commands.put("topJudges", new StatisticsWrapper(parser.statisticsGenerator.getTop10Judges()));
-        commands.put("topRegulations", new StatisticsWrapper(parser.statisticsGenerator.getTop10Regulations()));
-        commands.put("courts", new StatisticsWrapper(parser.statisticsGenerator.getCourtsStatistics()));
-        commands.put("judgesToJudgment", new StatisticsWrapper(parser.statisticsGenerator.getJudgesToJudgment()));
-        commands.put("years", new StatisticsWrapper(parser.statisticsGenerator.yearStats()));
-        //commands.put("month", new StatisticsWrapper(parser.statisticsGenerator.yearStats()));
+        commands.put("topJudges", new JudgesStatistics());
+        commands.put("topRegulations", new RegulationStatistics());
+        commands.put("courts", new CourtStatistics());
+        commands.put("judgesToJudgment", new JudgmentStatistics());
+        commands.put("years", new TimeStatistics());
 
         //TerminalBuilder builder = TerminalBuilder.builder();
 
@@ -44,9 +46,7 @@ public class JudgesSystem {
 
         LineReader reader = LineReaderBuilder.builder().build();
 
-
-
-        String prompt = "GHCI>";
+        String prompt = "<*>";
         while (true) {
             String line = null;
             try {

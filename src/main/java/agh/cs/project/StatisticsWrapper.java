@@ -11,4 +11,8 @@ public class StatisticsWrapper implements ICommand{
     public String execute() {
         return message;
     }
+
+    public String execute(String[] args) {
+        return null;
+    }
 }

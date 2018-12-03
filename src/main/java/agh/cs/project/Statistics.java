@@ -1,10 +1,13 @@
 package agh.cs.project;
 
+import agh.cs.project.JSONClasses.JSONJudgment;
+import agh.cs.project.JSONClasses.JSONRegulation;
+
 import java.util.*;
 
 public class Statistics {
 
-    private class MonthsElement {
+    protected class MonthsElement {
         private int[] judgmentsPerMonth;
 
         public MonthsElement() {
@@ -32,10 +35,10 @@ public class Statistics {
         }
     }
 
-    private ArrayList<Court> courtsStats;
-    private Map<Integer, ReferencedRegulation> regulations;
-    private HashMap<String, Integer> judgmentJudgesStats;
-    private HashMap<String, MonthsElement> judgmentsStatisticsOverYears;
+    protected ArrayList<Court> courtsStats;
+    protected Map<Integer, ReferencedRegulation> regulations;
+    protected HashMap<String, Integer> judgmentJudgesStats;
+    protected HashMap<String, MonthsElement> judgmentsStatisticsOverYears;
     protected List<Judge> judgesByJudgments;
 
     public Statistics() {
@@ -43,7 +46,6 @@ public class Statistics {
         regulations = new HashMap<Integer, ReferencedRegulation>();
         judgmentJudgesStats = new HashMap<String, Integer>();
         judgmentsStatisticsOverYears = new HashMap<String, MonthsElement>();
-
     }
 
     public void load(List<JSONJudgment> judgments, Map<String, Judge> judges) {
@@ -108,81 +110,5 @@ public class Statistics {
                 regulations.put(newRegulation.hashCode(), newRegulation);
             }
         }
-    }
-
-    public String monthStats(String year) {
-        return judgmentsStatisticsOverYears.get(year).toString();
-    }
-
-    public String yearStats() {
-        StringBuilder bob = new StringBuilder("Liczba orzeczen w kazdym miesiacy kazdego roku:\n");
-        for (Map.Entry<String, MonthsElement> element : judgmentsStatisticsOverYears.entrySet()) {
-            String toAppend = "ROK " + element.getKey() + " prezezntowal sie nastepujaco:\n" + element.getValue();
-            bob.append(toAppend);
-        }
-
-        return bob.toString();
-    }
-
-    public String getJudgesToJudgment() {
-        int min = 0, avg = 0, max = 0;
-
-        min = Collections.min(judgmentJudgesStats.values());
-
-        for (Integer value : judgmentJudgesStats.values()) {
-            avg += value;
-        }
-        avg /= judgmentJudgesStats.size();
-
-        max = Collections.max(judgmentJudgesStats.values());
-
-        return "Najmniejsza liczba sedziow w orzeczeniu to: " + min + "\nnatomiast najwieksza liczba swedziow " +
-                "przypadajacych na orzeczenie to: " + max + "\n Srednia liczba sedziow na orzeczenie: " + avg + ".";
-    }
-
-    public String getCourtsStatistics() {
-        StringBuilder bob = new StringBuilder();
-
-        Collections.sort(courtsStats, new Comparator<Court>() {
-            public int compare(Court o1, Court o2) {
-                return o2.getNumberOfJudgments() - o1.getNumberOfJudgments(); // Descending.
-            }
-        });
-
-        for (Court court : courtsStats) {
-            bob.append(court);
-            bob.append("\n");
-        }
-
-        return bob.toString();
-    }
-
-    public String getTop10Regulations() {
-        StringBuilder bob = new StringBuilder();
-
-        List<ReferencedRegulation> regulationsByReferentions = new ArrayList<ReferencedRegulation>(regulations.values());
-        Collections.sort(regulationsByReferentions, new Comparator<ReferencedRegulation>() {
-            public int compare(ReferencedRegulation o1, ReferencedRegulation o2) {
-                return o2.getNumberOfReferentions() - o1.getNumberOfReferentions(); // Descending.
-            }
-        });
-
-        for (int i = 0; i < 10; i++) {
-            ReferencedRegulation referencedRegulation = regulationsByReferentions.get(i);
-            String regulationStat = i + 1 + ": " + referencedRegulation + "\n";
-            bob.append(regulationStat);
-        }
-        return bob.toString();
-    }
-
-    public String getTop10Judges() {
-        StringBuilder bob = new StringBuilder();
-
-        for (int i = 0; i < 10; i++) {
-            Judge judge = judgesByJudgments.get(i);
-            String judgeStats = i + 1 + ": " + judge.getName() + ": " + judge.getNumberOfCases() + "\n";
-            bob.append(judgeStats);
-        }
-        return bob.toString();
     }
 }

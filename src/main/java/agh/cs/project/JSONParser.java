@@ -1,5 +1,7 @@
 package agh.cs.project;
 
+import agh.cs.project.JSONClasses.JSONJudgment;
+import agh.cs.project.JSONClasses.JSONTemplateClass;
 import com.google.gson.Gson;
 
 import java.io.File;

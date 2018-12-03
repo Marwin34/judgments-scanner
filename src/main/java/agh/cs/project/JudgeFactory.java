@@ -1,5 +1,7 @@
 package agh.cs.project;
 
+import agh.cs.project.JSONClasses.JSONJudge;
+
 import java.util.Map;
 
 public class JudgeFactory {

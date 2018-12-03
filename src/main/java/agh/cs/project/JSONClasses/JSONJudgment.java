@@ -1,4 +1,6 @@
-package agh.cs.project;
+package agh.cs.project.JSONClasses;
+
+import agh.cs.project.*;
 
 import java.util.List;
 import java.util.Map;
