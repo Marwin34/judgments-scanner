@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="POProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/POProject_jar</output-path>
+    <root id="archive" name="POProject.jar">
+      <element id="module-output" name="POProject" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jline/jline/3.8.2/jline-3.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/fusesource/jansi/jansi/1.17.1/jansi-1.17.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

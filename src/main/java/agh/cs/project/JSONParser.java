@@ -38,7 +38,6 @@ public class JSONParser {
             }
         }
         System.out.println("Loaded " + loadedJSONJudgments.size() + " elements from json file(s).");
-
         return true;
     }
 

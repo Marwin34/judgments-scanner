@@ -36,7 +36,7 @@ public class Statistics {
     private Map<Integer, ReferencedRegulation> regulations;
     private HashMap<String, Integer> judgmentJudgesStats;
     private HashMap<String, MonthsElement> judgmentsStatisticsOverYears;
-    private List<Judge> judgesByJudgments;
+    protected List<Judge> judgesByJudgments;
 
     public Statistics() {
         courtsStats = new ArrayList<Court>();
