@@ -23,7 +23,17 @@ public class JudgesSystem {
 
         try {
 
-            if (!parser.load("json")) {
+            Terminal terminal = TerminalBuilder.builder().system(true).build();
+            LineReaderBuilder builder = LineReaderBuilder.builder().terminal(terminal);
+            LineReader reader = builder.build();
+            String prompt = "<*>";
+
+            terminal.writer().print("Podaj sciezke do folderu aby wycztac jego zawartosc. \n");
+            String line = null;
+            line = reader.readLine(prompt);
+
+
+            if (!parser.load(line)) {
                 System.out.println("Cant load files!");
                 System.exit(0);
             } else {
@@ -42,13 +52,7 @@ public class JudgesSystem {
                 commands.put("rubrum", new DisplayRubrums(parser));
                 commands.put("justification", new DisplayJustifications(parser));
 
-                Terminal terminal = TerminalBuilder.builder().system(true).build();
-                LineReaderBuilder builder = LineReaderBuilder.builder().terminal(terminal);
-                LineReader reader = builder.build();
-                String prompt = "<*>";
-
                 while (true) {
-                    String line = null;
                     try {
                         line = reader.readLine(prompt);
                         String command = line.split(" ")[0];
