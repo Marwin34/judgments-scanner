@@ -1,8 +1,18 @@
 package agh.cs.project;
 
-import java.util.Collections;
+import agh.cs.project.Commands.ICommand;
 
-public class JudgmentStatistics extends Statistics implements ICommand {
+import java.util.Collections;
+import java.util.HashMap;
+
+public class JudgmentStatistics implements ICommand {
+
+    private final Statistics statistics;
+
+    public JudgmentStatistics(Statistics statistics) {
+        this.statistics = statistics;
+    }
+
     public String execute() {
         return getJudgesToJudgment();
     }
@@ -12,6 +22,9 @@ public class JudgmentStatistics extends Statistics implements ICommand {
     }
 
     public String getJudgesToJudgment() {
+
+        HashMap<String, Integer> judgmentJudgesStats = statistics.getJudgmentJudgesStats();
+        
         int min = 0, avg = 0, max = 0;
 
         min = Collections.min(judgmentJudgesStats.values());

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Statistics {
 
-    protected class MonthsElement {
+    public class MonthsElement {
         private int[] judgmentsPerMonth;
 
         public MonthsElement() {
@@ -35,17 +35,18 @@ public class Statistics {
         }
     }
 
-    protected ArrayList<Court> courtsStats;
-    protected Map<Integer, ReferencedRegulation> regulations;
-    protected HashMap<String, Integer> judgmentJudgesStats;
-    protected HashMap<String, MonthsElement> judgmentsStatisticsOverYears;
-    protected List<Judge> judgesByJudgments;
+    private ArrayList<Court> courtsStats;
+    private Map<Integer, ReferencedRegulation> regulations;
+    private HashMap<String, Integer> judgmentJudgesStats;
+    private HashMap<String, MonthsElement> judgmentsStatisticsOverYears;
+    private List<Judge> judgesByJudgments;
 
     public Statistics() {
-        courtsStats = new ArrayList<Court>();
-        regulations = new HashMap<Integer, ReferencedRegulation>();
-        judgmentJudgesStats = new HashMap<String, Integer>();
-        judgmentsStatisticsOverYears = new HashMap<String, MonthsElement>();
+        courtsStats = new ArrayList<>();
+        regulations = new HashMap<>();
+        judgmentJudgesStats = new HashMap<>();
+        judgmentsStatisticsOverYears = new HashMap<>();
+        judgesByJudgments = new ArrayList<>();
     }
 
     public void load(List<JSONJudgment> judgments, Map<String, Judge> judges) {
@@ -59,13 +60,10 @@ public class Statistics {
     }
 
     private void convertJudgesToTop10(Map<String, Judge> judges){
-        judgesByJudgments = new ArrayList<Judge>(judges.values());
-        Collections.sort(judgesByJudgments, new Comparator<Judge>() {
-            public int compare(Judge o1, Judge o2) {
-                return o2.getNumberOfCases() - o1.getNumberOfCases(); // Descending.
-            }
+        judgesByJudgments.addAll(judges.values());
+        judgesByJudgments.sort((o1, o2) -> {
+            return o2.getNumberOfCases() - o1.getNumberOfCases(); // Descending.
         });
-        judgesByJudgments = judgesByJudgments.subList(0, 10);
     }
 
     private void judgesNumberToJudgment(JSONJudgment judgment) {
@@ -110,5 +108,25 @@ public class Statistics {
                 regulations.put(newRegulation.hashCode(), newRegulation);
             }
         }
+    }
+
+    public ArrayList<Court> getCourtsStats() {
+        return courtsStats;
+    }
+
+    public Map<Integer, ReferencedRegulation> getRegulations() {
+        return regulations;
+    }
+
+    public HashMap<String, Integer> getJudgmentJudgesStats() {
+        return judgmentJudgesStats;
+    }
+
+    public HashMap<String, MonthsElement> getJudgmentsStatisticsOverYears() {
+        return judgmentsStatisticsOverYears;
+    }
+
+    public List<Judge> getJudgesByJudgments() {
+        return judgesByJudgments;
     }
 }

@@ -12,30 +12,30 @@ import java.util.*;
 public class JSONParser {
     private Gson gson = new Gson();
 
-    private List<JSONJudgment> loadedJSONJudgments;
+    protected List<JSONJudgment> loadedJSONJudgments;
 
     private Map<String, Judge> judges;
 
-    public HashMap<String, Judgment> judgments;
-
-    Statistics statisticsGenerator;
+    private HashMap<String, Judgment> judgments;
 
     public JSONParser() {
-        judgments = new HashMap<String, Judgment>();
-        judges = new HashMap<String, Judge>();
-        loadedJSONJudgments = new ArrayList<JSONJudgment>();
-        statisticsGenerator = new Statistics();
+        judgments = new HashMap<>();
+        judges = new HashMap<>();
+        loadedJSONJudgments = new ArrayList<>();
     }
 
     public boolean load(String path) throws FileNotFoundException {
 
-        File directory = new File(path + "\\json");
-
         if (isEmpty(path))
             return false;
 
+        File directory = new File(path);
+
+        System.out.println(directory.getAbsolutePath());
+
         for (File file : directory.listFiles()) {
             if (file.getName().endsWith(".json")) {
+                System.out.println("Load " + file.getName());
                 loadedJSONJudgments.addAll(gson.fromJson(new FileReader(file.toString()), JSONTemplateClass.class).items);
             }
         }
@@ -48,7 +48,6 @@ public class JSONParser {
             judgments.put(judgment.getSignature(), new Judgment(judgment, judges));
         }
 
-        statisticsGenerator.load(loadedJSONJudgments, judges);
     }
 
     private boolean isEmpty(String path) {
@@ -71,5 +70,17 @@ public class JSONParser {
         }
 
         return false;
+    }
+
+    public Map<String, Judge> getJudges() {
+        return judges;
+    }
+
+    public HashMap<String, Judgment> getJudgments() {
+        return judgments;
+    }
+
+    public List<JSONJudgment> getLoadedJSONJudgments() {
+        return loadedJSONJudgments;
     }
 }

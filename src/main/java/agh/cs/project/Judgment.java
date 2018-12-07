@@ -24,7 +24,7 @@ public class Judgment {
         courtType = judgment.getCourtType();
         justification = judgment.getJustification();
 
-        this.judges = new ArrayList<Judge>();
+        this.judges = new ArrayList<>();
 
         List<JSONJudge> JSONJudges = judgment.getJudges();
 

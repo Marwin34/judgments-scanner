@@ -1,11 +1,20 @@
-package agh.cs.project;
+package agh.cs.project.Commands;
+
+import agh.cs.project.ReferencedRegulation;
+import agh.cs.project.Statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class RegulationStatistics extends Statistics implements ICommand {
+public class RegulationStatistics implements ICommand {
+
+    private Statistics statistics;
+
+    public RegulationStatistics(Statistics statistics) {
+        this.statistics = statistics;
+    }
+
     public String execute() {
         return getTop10Regulations();
     }
@@ -17,11 +26,9 @@ public class RegulationStatistics extends Statistics implements ICommand {
     public String getTop10Regulations() {
         StringBuilder bob = new StringBuilder();
 
-        List<ReferencedRegulation> regulationsByReferentions = new ArrayList<ReferencedRegulation>(regulations.values());
-        Collections.sort(regulationsByReferentions, new Comparator<ReferencedRegulation>() {
-            public int compare(ReferencedRegulation o1, ReferencedRegulation o2) {
-                return o2.getNumberOfReferentions() - o1.getNumberOfReferentions(); // Descending.
-            }
+        List<ReferencedRegulation> regulationsByReferentions = new ArrayList<ReferencedRegulation>(statistics.getRegulations().values());
+        Collections.sort(regulationsByReferentions, (o1, o2) -> {
+            return o2.getNumberOfReferentions() - o1.getNumberOfReferentions(); // Descending.
         });
 
         for (int i = 0; i < 10; i++) {
