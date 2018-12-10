@@ -1,6 +1,6 @@
 package agh.cs.project.Commands;
 
-import agh.cs.project.JSONParser;
+import agh.cs.project.JSONClasses.JSONParser;
 
 public class DisplayRubrums implements ICommand {
 

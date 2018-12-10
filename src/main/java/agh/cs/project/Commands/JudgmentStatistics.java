@@ -1,6 +1,6 @@
-package agh.cs.project;
+package agh.cs.project.Commands;
 
-import agh.cs.project.Commands.ICommand;
+import agh.cs.project.Model.Statistics;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,6 +19,11 @@ public class JudgmentStatistics implements ICommand {
 
     public String execute(String[] args) {
         return execute();
+    }
+
+    @Override
+    public String description() {
+        return "Statystyki sedziow do orzeczenia.";
     }
 
     public String getJudgesToJudgment() {

@@ -1,6 +1,8 @@
 package agh.cs.project;
 
 import agh.cs.project.Commands.*;
+import agh.cs.project.JSONClasses.JSONParser;
+import agh.cs.project.Model.Statistics;
 import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;

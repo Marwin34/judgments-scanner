@@ -1,9 +1,8 @@
 package agh.cs.project.Commands;
 
-import agh.cs.project.Commands.ICommand;
-import agh.cs.project.Statistics;
+import agh.cs.project.Model.Statistics;
 
-public class CourtStatistics extends Statistics implements ICommand {
+public class CourtStatistics implements ICommand {
 
     private final Statistics statistics;
 

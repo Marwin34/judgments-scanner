@@ -1,7 +1,7 @@
-package agh.cs.project;
+package agh.cs.project.JSONClasses;
 
-import agh.cs.project.JSONClasses.JSONJudgment;
-import agh.cs.project.JSONClasses.JSONTemplateClass;
+import agh.cs.project.Model.Judge;
+import agh.cs.project.Model.Judgment;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -44,7 +44,6 @@ public class JSONParser {
         for (JSONJudgment judgment : loadedJSONJudgments) {
             judgments.put(judgment.getSignature(), new Judgment(judgment, judges));
         }
-
     }
 
     private boolean isEmpty(String path) {

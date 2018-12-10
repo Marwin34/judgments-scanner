@@ -27,15 +27,7 @@ public class JSONJudgment {
     private List<String> lowerCourtJudges;
     private List<String> dissentingOptions;
     private String judgmentDate;
-
-    private JudgeFactory factory = new JudgeFactory();
-
-    public void fetchJudges(Map<String, Judge> judges){
-        for(JSONJudge judge : this.judges){
-            factory.create(judge, judges);
-        }
-    }
-
+    
     @Override
     public String toString(){
         return id + ": " + judgmentType + ", " + judgmentDate;
