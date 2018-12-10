@@ -10,4 +10,9 @@ public class CommandNotFound implements ICommand {
     public String execute(String[] args) {
         return null;
     }
+
+    @Override
+    public String description() {
+        return "";
+    }
 }

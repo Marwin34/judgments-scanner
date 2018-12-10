@@ -29,4 +29,9 @@ public class CourtStatistics extends Statistics implements ICommand {
 
         return bob.toString();
     }
+
+    @Override
+    public String description() {
+        return "Zwraca statystyke sadow ze wzgledu na liczbe wydanych orzeczen.";
+    }
 }

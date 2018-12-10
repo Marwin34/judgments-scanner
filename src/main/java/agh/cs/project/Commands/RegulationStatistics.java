@@ -38,4 +38,9 @@ public class RegulationStatistics implements ICommand {
         }
         return bob.toString();
     }
+
+    @Override
+    public String description() {
+        return "Wystetla cytowane prawa.";
+    }
 }

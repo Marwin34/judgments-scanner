@@ -25,13 +25,10 @@ public class JSONParser {
     }
 
     public boolean load(String path) throws FileNotFoundException {
-
         if (isEmpty(path))
             return false;
 
         File directory = new File(path);
-
-        System.out.println(directory.getAbsolutePath());
 
         for (File file : directory.listFiles()) {
             if (file.getName().endsWith(".json")) {

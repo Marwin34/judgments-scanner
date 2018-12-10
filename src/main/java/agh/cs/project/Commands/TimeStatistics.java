@@ -40,4 +40,9 @@ public class TimeStatistics implements ICommand {
 
         return bob.toString();
     }
+
+    @Override
+    public String description() {
+        return "Wyswetla statystki ze wzgledu na rok lub miesiac.";
+    }
 }

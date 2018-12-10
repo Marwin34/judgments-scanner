@@ -26,4 +26,9 @@ public class JudgesStatistics implements ICommand {
 
         return bob.toString();
     }
+
+    @Override
+    public String description() {
+        return "Wyswietla top 10 sedziow ze wzgledu na liczbe wydanych orzeczen";
+    }
 }

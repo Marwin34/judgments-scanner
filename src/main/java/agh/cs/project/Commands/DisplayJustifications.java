@@ -23,4 +23,9 @@ public class DisplayJustifications implements ICommand {
 
         return bob.toString();
     }
+
+    @Override
+    public String description() {
+        return "Wyswietla uzasadnienie danego orzeczenia.";
+    }
 }

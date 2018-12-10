@@ -23,4 +23,9 @@ public class DisplayRubrums implements ICommand {
 
         return bob.toString();
     }
+
+    @Override
+    public String description() {
+        return "Wyswietla metryke danej sprawy.";
+    }
 }

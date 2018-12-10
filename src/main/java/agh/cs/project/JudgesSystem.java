@@ -51,6 +51,7 @@ public class JudgesSystem {
                 commands.put("years", new TimeStatistics(statistics));
                 commands.put("rubrum", new DisplayRubrums(parser));
                 commands.put("justification", new DisplayJustifications(parser));
+                commands.put("help", new HelpCommand(commands));
 
                 while (true) {
                     try {
