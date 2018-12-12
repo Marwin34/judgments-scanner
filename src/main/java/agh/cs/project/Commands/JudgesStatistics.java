@@ -1,6 +1,6 @@
 package agh.cs.project.Commands;
 
-import agh.cs.project.Statistics;
+import agh.cs.project.Model.Statistics;
 
 public class JudgesStatistics implements ICommand {
 

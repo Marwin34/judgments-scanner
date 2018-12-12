@@ -1,7 +1,7 @@
 package agh.cs.project.Commands;
 
-import agh.cs.project.ReferencedRegulation;
-import agh.cs.project.Statistics;
+import agh.cs.project.Model.ReferencedRegulation;
+import agh.cs.project.Model.Statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;

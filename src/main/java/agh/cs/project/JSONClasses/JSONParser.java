@@ -12,7 +12,7 @@ import java.util.*;
 public class JSONParser {
     private Gson gson = new Gson();
 
-    protected List<JSONJudgment> loadedJSONJudgments;
+    private List<JSONJudgment> loadedJSONJudgments;
 
     private Map<String, Judge> judges;
 

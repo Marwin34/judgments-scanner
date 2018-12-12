@@ -1,4 +1,4 @@
-package agh.cs.project;
+package agh.cs.project.Model;
 
 import agh.cs.project.JSONClasses.JSONJudge;
 
