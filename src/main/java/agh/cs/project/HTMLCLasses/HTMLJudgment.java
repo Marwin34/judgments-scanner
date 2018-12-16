@@ -1,5 +1,8 @@
 package agh.cs.project.HTMLCLasses;
 
+import agh.cs.project.Model.AbstractJudge;
+import agh.cs.project.Model.AbstractRegulation;
+import agh.cs.project.Model.IJudgment;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -9,17 +12,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class HTMLJudgment {
+public class HTMLJudgment implements IJudgment {
     private String signature;
     private String courtType;
     private String judgmentDate;
     private String justification;
-    private Map<String, List<String>> judges;
-    private List<HTMLRegulation> referencedRegulations;
+    private List<AbstractRegulation> referencedRegulations;
+    private List<AbstractJudge> judges;
 
     public HTMLJudgment(Document judgment) {
         Element body = judgment.body();
-        judges = new HashMap<>();
+        judges = new ArrayList<>();
         referencedRegulations = new ArrayList<>();
 
         //LOAD STRING DATA
@@ -75,34 +78,41 @@ public class HTMLJudgment {
         } else {
             roles.add("barak");
         }
-        judges.put(name, roles);
+        judges.add(new HTMLJudge(name, roles));
     }
 
+    @Override
     public int numberOfJudges(){
         return judges.size();
     }
 
+    @Override
     public String getSignature() {
         return signature;
     }
 
+    @Override
     public String getCourtType() {
         return courtType;
     }
 
+    @Override
     public String getJudgmentDate() {
         return judgmentDate;
     }
 
+    @Override
     public String getJustification() {
         return justification;
     }
 
-    public Map<String, List<String>> getJudges() {
+    @Override
+    public List<AbstractJudge> getJudges() {
         return judges;
     }
 
-    public List<HTMLRegulation> getReferencedRegulations() {
+    @Override
+    public List<AbstractRegulation> getReferencedRegulations() {
         return referencedRegulations;
     }
 }

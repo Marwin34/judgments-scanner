@@ -1,11 +1,13 @@
 package agh.cs.project.JSONClasses;
 
-import agh.cs.project.*;
+import agh.cs.project.Model.AbstractJudge;
+import agh.cs.project.Model.AbstractRegulation;
+import agh.cs.project.Model.IJudgment;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class JSONJudgment {
+public class JSONJudgment implements IJudgment {
 
     private int id;
     private String courtType;
@@ -37,26 +39,32 @@ public class JSONJudgment {
         return courtCases.get(0).getCaseNumber();
     }
 
+    @Override
     public String getJudgmentDate(){
         return  judgmentDate;
     }
 
+    @Override
     public String getJustification(){
         return textContent;
     }
 
-    public List<JSONJudge> getJudges(){
-        return judges;
+    @Override
+    public List<AbstractJudge> getJudges(){
+        return new ArrayList<>(judges);
     }
 
+    @Override
     public String getCourtType(){
         return courtType;
     }
 
-    public List<JSONRegulation> getReferencedRegulations() {
-        return referencedRegulations;
+    @Override
+    public List<AbstractRegulation> getReferencedRegulations() {
+        return new ArrayList<>(referencedRegulations);
     }
 
+    @Override
     public int numberOfJudges(){
         return judges.size();
     }

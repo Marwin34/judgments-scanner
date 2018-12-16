@@ -12,7 +12,7 @@ public class ReferencedRegulation {
 
     private int numberOfReferentions;
 
-    public ReferencedRegulation(JSONRegulation regulation){
+    public ReferencedRegulation(AbstractRegulation regulation){
         journalTitle = regulation.getJournalTitle();
         journalNo = regulation.getJournalNo();
         journalYear = regulation.getJournalYear();

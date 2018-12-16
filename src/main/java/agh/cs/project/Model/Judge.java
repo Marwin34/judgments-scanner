@@ -17,7 +17,7 @@ public class Judge{
         numberOfCases = 1;
     }
 
-    public Judge(JSONJudge judge){
+    public Judge(AbstractJudge judge){
         this.name = judge.getName();
         this.roles = judge.getSpecialRoles();
         numberOfCases = 1;

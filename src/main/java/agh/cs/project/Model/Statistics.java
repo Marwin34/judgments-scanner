@@ -1,13 +1,6 @@
 package agh.cs.project.Model;
 
-import agh.cs.project.HTMLCLasses.HTMLJudgment;
-import agh.cs.project.HTMLCLasses.HTMLRegulation;
-import agh.cs.project.JSONClasses.JSONJudgment;
-import agh.cs.project.JSONClasses.JSONRegulation;
-import org.jsoup.nodes.Document;
-
 import java.util.*;
-import java.util.regex.Matcher;
 
 public class Statistics {
 
@@ -53,23 +46,13 @@ public class Statistics {
         judgesByJudgments = new ArrayList<>();
     }
 
-    public void load(List<JSONJudgment> judgments, Map<String, Judge> judges) {
+    public void load(List<IJudgment> judgments, Map<String, Judge> judges) {
         convertJudgesToTop10(judges);
-        for (JSONJudgment judgment : judgments) {
+        for (IJudgment judgment : judgments) {
             createYearlyStatistics(judgment);
             judgesNumberToJudgment(judgment);
             createCourt(judgment);
             createRegulationStats(judgment.getReferencedRegulations());
-        }
-    }
-
-    public void loadHTML(List<HTMLJudgment> judgments, Map<String, Judge> judges){
-        convertJudgesToTop10(judges);
-        for (HTMLJudgment judgment : judgments) {
-            createYearlyStatistics(judgment);
-            judgesNumberToJudgment(judgment);
-            createCourt(judgment);
-            createRegulationStats2(judgment.getReferencedRegulations());
         }
     }
 
@@ -89,23 +72,11 @@ public class Statistics {
         });
     }
 
-    private void judgesNumberToJudgment(JSONJudgment judgment) {
+    private void judgesNumberToJudgment(IJudgment judgment) {
         judgmentJudgesStats.put(judgment.getSignature(), judgment.numberOfJudges());
     }
 
-    private void judgesNumberToJudgment(HTMLJudgment judgment) {
-        judgmentJudgesStats.put(judgment.getSignature(), judgment.numberOfJudges());
-    }
-
-    private void createYearlyStatistics(JSONJudgment judgment) {
-        String year = judgment.getJudgmentDate().split("-")[0];
-        String id = judgment.getJudgmentDate().split("-")[1];
-
-        int i = Integer.parseInt(id) - 1;
-        addToMonth(year, i);
-    }
-
-    private void createYearlyStatistics(HTMLJudgment judgment) {
+    private void createYearlyStatistics(IJudgment judgment) {
         String year = judgment.getJudgmentDate().split("-")[0];
         String id = judgment.getJudgmentDate().split("-")[1];
 
@@ -125,7 +96,7 @@ public class Statistics {
         }
     }
 
-    private void createCourt(JSONJudgment judgment){
+    private void createCourt(IJudgment judgment){
         Court newCourt = new Court(judgment.getCourtType());
 
         for(Court court : courtsStats){
@@ -137,32 +108,9 @@ public class Statistics {
         courtsStats.add(newCourt);
     }
 
-    private void createCourt(HTMLJudgment judgment){
-        Court newCourt = new Court(judgment.getCourtType());
-
-        for(Court court : courtsStats){
-            if(court.equals(newCourt)) {
-                court.incrementNumberOfJudgments();
-                return;
-            }
-        }
-        courtsStats.add(newCourt);
-    }
-
-    private void createRegulationStats(List<JSONRegulation> JSONregulations){
-        for(JSONRegulation JSONRegulation : JSONregulations){
-            ReferencedRegulation newRegulation = new ReferencedRegulation(JSONRegulation);
-
-            if(regulations.containsValue(newRegulation)){
-                regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
-            }else{
-                regulations.put(newRegulation.hashCode(), newRegulation);
-            }
-        }
-    }
-    private void createRegulationStats2(List<HTMLRegulation> HTMLregulations){
-        for(HTMLRegulation HTMLregulation : HTMLregulations){
-            ReferencedRegulation newRegulation = new ReferencedRegulation(HTMLregulation);
+    private void createRegulationStats(List<AbstractRegulation> referencedRegulations){
+        for(AbstractRegulation regulation : referencedRegulations){
+            ReferencedRegulation newRegulation = new ReferencedRegulation(regulation);
 
             if(regulations.containsValue(newRegulation)){
                 regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();

@@ -1,17 +1,16 @@
 package agh.cs.project.JSONClasses;
 
+import agh.cs.project.Model.AbstractJudge;
 import java.util.List;
 
-public class JSONJudge {
+public class JSONJudge extends AbstractJudge {
 
-    private String name;
-    private String function;
-    private List<String> specialRoles;
-
+    @Override
     public String getName(){
         return name;
     }
 
+    @Override
     public List<String> getSpecialRoles(){
         return specialRoles;
     }

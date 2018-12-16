@@ -31,13 +31,10 @@ public class DataLoader {
 
     private HashMap<String, Judgment> judgments;
 
-    private final Statistics statistics;
-
     public DataLoader(Statistics statistics){
-        this.statistics = statistics;
         targets = new ArrayList<>();
-        jsonParser = new JSONParser(this.statistics);
-        htmlPareser = new HTMLPareser(this.statistics);
+        jsonParser = new JSONParser(statistics);
+        htmlPareser = new HTMLPareser(statistics);
         judgments = new HashMap<>();
         judges = new HashMap<>();
     }

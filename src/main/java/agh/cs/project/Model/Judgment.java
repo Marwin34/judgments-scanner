@@ -1,8 +1,6 @@
 package agh.cs.project.Model;
 
 import agh.cs.project.HTMLCLasses.HTMLJudgment;
-import agh.cs.project.JSONClasses.JSONJudge;
-import agh.cs.project.JSONClasses.JSONJudgment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,7 @@ public class Judgment {
     private ArrayList<Judge> judges;
     private String justification;
 
-    public Judgment(JSONJudgment judgment, Map<String, Judge> judges) {
+    public Judgment(IJudgment judgment, Map<String, Judge> judges) {
 
         signature = judgment.getSignature();
         judgmentDate = judgment.getJudgmentDate();
@@ -25,9 +23,9 @@ public class Judgment {
 
         this.judges = new ArrayList<>();
 
-        List<JSONJudge> JSONJudges = judgment.getJudges();
+        List<AbstractJudge> JSONJudges = judgment.getJudges();
 
-        for (JSONJudge JSONjudge : JSONJudges) {
+        for (AbstractJudge JSONjudge : JSONJudges) {
             this.judges.add(create(JSONjudge, judges));
         }
     }
@@ -41,14 +39,14 @@ public class Judgment {
 
         this.judges = new ArrayList<>();
 
-        Map<String, List<String>> HTMLJudges = judgment.getJudges();
+        List<AbstractJudge> HTMLJudges = judgment.getJudges();
 
-        for(Map.Entry<String, List<String>> HTMLjudge : HTMLJudges.entrySet()){
+        for (AbstractJudge HTMLjudge : HTMLJudges) {
             this.judges.add(create(HTMLjudge, judges));
         }
     }
 
-    private Judge create(JSONJudge judge, Map<String, Judge> judges) {
+    private Judge create(AbstractJudge judge, Map<String, Judge> judges) {
         if (judges.containsKey(judge.getName())) {
             Judge existingJudge = judges.get(judge.getName());
             existingJudge.incrementCase();

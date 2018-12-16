@@ -1,10 +1,8 @@
 package agh.cs.project.HTMLCLasses;
 
-public class HTMLRegulation {
-    private String journalTitle;
-    private int journalNo;
-    private int journalYear;
-    private int journalEntry;
+import agh.cs.project.Model.AbstractRegulation;
+
+public class HTMLRegulation extends AbstractRegulation {
 
     public HTMLRegulation(String journalTitle, int journalNo, int journalYear, int journalEntry) {
         this.journalTitle = journalTitle;

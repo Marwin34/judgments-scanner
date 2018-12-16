@@ -1,5 +1,6 @@
 package agh.cs.project.HTMLCLasses;
 
+import agh.cs.project.Model.IJudgment;
 import agh.cs.project.Model.Judge;
 import agh.cs.project.Model.Judgment;
 import agh.cs.project.Model.Statistics;
@@ -15,7 +16,7 @@ import java.util.Map;
 public class HTMLPareser {
     private Statistics statistics;
 
-    private List<HTMLJudgment> loadedHTMLJudgmesnts;
+    private List<IJudgment> loadedHTMLJudgmesnts;
 
     public HTMLPareser(Statistics statistics) {
         this.statistics = statistics;
@@ -34,13 +35,9 @@ public class HTMLPareser {
     }
 
     public void fetchAll(HashMap<String, Judgment> judgments, Map<String, Judge> judges) {
-        for (HTMLJudgment judgment : loadedHTMLJudgmesnts) {
+        for (IJudgment judgment : loadedHTMLJudgmesnts) {
             judgments.put(judgment.getSignature(), new Judgment(judgment, judges));
         }
-        statistics.loadHTML(loadedHTMLJudgmesnts, judges);
-    }
-
-    private String getSignature(String text){
-        return text.substring(0, text.indexOf('-') - 1);
+        statistics.load(loadedHTMLJudgmesnts, judges);
     }
 }

@@ -1,13 +1,8 @@
 package agh.cs.project.JSONClasses;
 
-public class JSONRegulation {
+import agh.cs.project.Model.AbstractRegulation;
 
-    private String journalTitle;
-    private int journalNo;
-    private int journalYear;
-    private int journalEntry;
-    private String text;
-
+public class JSONRegulation extends AbstractRegulation {
     public String getJournalTitle() {
         return journalTitle;
     }
