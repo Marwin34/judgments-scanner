@@ -1,8 +1,5 @@
 package agh.cs.project.Model;
 
-import agh.cs.project.JSONClasses.JSONJudge;
-
-import javax.xml.bind.Element;
 import java.util.List;
 
 public class Judge{

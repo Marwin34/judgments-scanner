@@ -3,17 +3,17 @@ package agh.cs.project.Model;
 import java.util.List;
 
 public interface IJudgment {
-    public int numberOfJudges();
+    int numberOfJudges();
 
-    public String getSignature();
+    String getSignature();
 
-    public String getCourtType();
+    String getCourtType();
 
-    public String getJudgmentDate();
+    String getJudgmentDate();
 
-    public String getJustification();
+    String getJustification();
 
-    public List<AbstractRegulation> getReferencedRegulations();
+    List<AbstractRegulation> getReferencedRegulations();
 
-    public List<AbstractJudge> getJudges();
+    List<AbstractJudge> getJudges();
 }

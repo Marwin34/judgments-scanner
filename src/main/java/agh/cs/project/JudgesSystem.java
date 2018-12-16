@@ -26,7 +26,7 @@ public class JudgesSystem {
             String prompt = "<*>";
 
             terminal.writer().print("Podaj sciezke do folderu aby wycztac jego zawartosc. \n");
-            String line = null;
+            String line;
             line = reader.readLine(prompt);
 
             Statistics statistics = new Statistics();

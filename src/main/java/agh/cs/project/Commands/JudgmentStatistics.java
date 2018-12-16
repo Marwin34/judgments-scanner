@@ -30,7 +30,7 @@ public class JudgmentStatistics implements ICommand {
 
         HashMap<String, Integer> judgmentJudgesStats = statistics.getJudgmentJudgesStats();
         
-        int min = 0, avg = 0, max = 0;
+        int min, avg = 0, max;
 
         min = Collections.min(judgmentJudgesStats.values());
 

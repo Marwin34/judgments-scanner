@@ -23,7 +23,7 @@ public class HTMLPareser {
         loadedHTMLJudgmesnts = new ArrayList<>();
     }
 
-    public boolean load(List<Path> targets) throws IOException {
+    public void load(List<Path> targets) throws IOException {
         for (Path file : targets) {
             if (file.toString().endsWith(".html")) {
                 System.out.println("Load " + file.toString());
@@ -31,7 +31,6 @@ public class HTMLPareser {
             }
         }
         System.out.println("Loaded " + loadedHTMLJudgmesnts.size() + " elements from html file(s).");
-        return true;
     }
 
     public void fetchAll(HashMap<String, Judgment> judgments, Map<String, Judge> judges) {

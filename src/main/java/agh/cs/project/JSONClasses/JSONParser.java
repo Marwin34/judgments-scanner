@@ -18,7 +18,7 @@ public class JSONParser {
         this.statistics = statistics;
     }
 
-    public boolean load(List<Path> targets) throws FileNotFoundException {
+    public void load(List<Path> targets) throws FileNotFoundException {
         for (Path file : targets) {
             if (file.toString().endsWith(".json")) {
                 System.out.println("Load " + file.toString());
@@ -26,7 +26,6 @@ public class JSONParser {
             }
         }
         System.out.println("Loaded " + loadedJSONJudgments.size() + " elements from json file(s).");
-        return true;
     }
 
     public void fetchAll(HashMap<String, Judgment> judgments, Map<String, Judge> judges) {
