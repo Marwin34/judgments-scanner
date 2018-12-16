@@ -2,18 +2,19 @@ package agh.cs.project.Model;
 
 import agh.cs.project.JSONClasses.JSONJudge;
 
+import javax.xml.bind.Element;
 import java.util.List;
 
 public class Judge{
 
     private String name;
-    //private String function;
     private List<String> roles;
     private int numberOfCases;
 
     public Judge(String name, List<String> roles){
         this.name = name;
         this.roles = roles;
+        numberOfCases = 1;
     }
 
     public Judge(JSONJudge judge){

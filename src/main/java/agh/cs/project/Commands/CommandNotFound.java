@@ -3,7 +3,7 @@ package agh.cs.project.Commands;
 public class CommandNotFound implements ICommand {
     @Override
     public String execute() {
-        return "Nieznana komenda. \\n";
+        return "Nieznana komenda. \n";
     }
 
     @Override

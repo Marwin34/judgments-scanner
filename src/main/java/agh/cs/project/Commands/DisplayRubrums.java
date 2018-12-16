@@ -1,13 +1,13 @@
 package agh.cs.project.Commands;
 
-import agh.cs.project.JSONClasses.JSONParser;
+import agh.cs.project.DataLoader;
 
 public class DisplayRubrums implements ICommand {
 
-    private final JSONParser parser;
+    private final DataLoader loader;
 
-    public DisplayRubrums(JSONParser parser) {
-        this.parser = parser;
+    public DisplayRubrums(DataLoader loader) {
+        this.loader = loader;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class DisplayRubrums implements ICommand {
     public String execute(String[] args) {
         StringBuilder bob = new StringBuilder();
         for(String signature : args)
-            bob.append(parser.getJudgments().get(signature).showRubrum());
+            bob.append(loader.getJudgments().get(signature).showRubrum());
 
         return bob.toString();
     }

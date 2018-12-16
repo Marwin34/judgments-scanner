@@ -1,5 +1,6 @@
 package agh.cs.project.Model;
 
+import agh.cs.project.HTMLCLasses.HTMLJudgment;
 import agh.cs.project.JSONClasses.JSONJudge;
 import agh.cs.project.JSONClasses.JSONJudgment;
 
@@ -15,7 +16,7 @@ public class Judgment {
     private ArrayList<Judge> judges;
     private String justification;
 
-    public Judgment(JSONJudgment judgment, Map<String, Judge> judges){
+    public Judgment(JSONJudgment judgment, Map<String, Judge> judges) {
 
         signature = judgment.getSignature();
         judgmentDate = judgment.getJudgmentDate();
@@ -26,19 +27,47 @@ public class Judgment {
 
         List<JSONJudge> JSONJudges = judgment.getJudges();
 
-        for(JSONJudge JSONjudge : JSONJudges){
+        for (JSONJudge JSONjudge : JSONJudges) {
             this.judges.add(create(JSONjudge, judges));
         }
     }
 
-    private Judge create(JSONJudge judge, Map<String, Judge> judges){
-        if(judges.containsKey(judge.getName())){
+    public Judgment(HTMLJudgment judgment, Map<String, Judge> judges) {
+
+        signature = judgment.getSignature();
+        judgmentDate = judgment.getJudgmentDate();
+        courtType = judgment.getCourtType();
+        justification = judgment.getJustification();
+
+        this.judges = new ArrayList<>();
+
+        Map<String, List<String>> HTMLJudges = judgment.getJudges();
+
+        for(Map.Entry<String, List<String>> HTMLjudge : HTMLJudges.entrySet()){
+            this.judges.add(create(HTMLjudge, judges));
+        }
+    }
+
+    private Judge create(JSONJudge judge, Map<String, Judge> judges) {
+        if (judges.containsKey(judge.getName())) {
             Judge existingJudge = judges.get(judge.getName());
             existingJudge.incrementCase();
             return existingJudge;
-        }else {
+        } else {
             Judge newJudge = new Judge(judge);
             judges.put(judge.getName(), newJudge);
+            return newJudge;
+        }
+    }
+
+    private Judge create(Map.Entry<String, List<String>> judge, Map<String, Judge> judges) {
+        if (judges.containsKey(judge.getKey())) {
+            Judge existingJudge = judges.get(judge.getKey());
+            existingJudge.incrementCase();
+            return existingJudge;
+        } else {
+            Judge newJudge = new Judge(judge.getKey(), judge.getValue());
+            judges.put(judge.getKey(), newJudge);
             return newJudge;
         }
     }
@@ -58,13 +87,13 @@ public class Judgment {
         return signature.hashCode();
     }
 
-    public String showRubrum(){
+    public String showRubrum() {
         StringBuilder bob = new StringBuilder(signature);
         String judgmentRubrum = signature + " : " + courtType + " : " + judgmentDate + " : judges = ";
 
         bob.append(judgmentRubrum);
 
-        for(Judge judge : judges) {
+        for (Judge judge : judges) {
             bob.append(judge.toString());
             bob.append("; ");
         }
@@ -72,7 +101,7 @@ public class Judgment {
         return bob.toString();
     }
 
-    public String showJustification(){
+    public String showJustification() {
         return justification;
     }
 }

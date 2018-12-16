@@ -1,7 +1,6 @@
 package agh.cs.project;
 
 import agh.cs.project.Commands.*;
-import agh.cs.project.JSONClasses.JSONParser;
 import agh.cs.project.Model.Statistics;
 import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
@@ -18,13 +17,9 @@ import java.util.Map;
 public class JudgesSystem {
 
     public static void main(String[] args) throws IOException {
-
-        //TODO - observer for judges
-        //TODO - zapoznaj sie z MVC i command
-        JSONParser parser = new JSONParser();
-
         try {
-
+            //TODO komendy z argumentami
+            //TODO naprawic porownywanie judgment i usunac judgment.signature
             Terminal terminal = TerminalBuilder.builder().system(true).build();
             LineReaderBuilder builder = LineReaderBuilder.builder().terminal(terminal);
             LineReader reader = builder.build();
@@ -34,25 +29,29 @@ public class JudgesSystem {
             String line = null;
             line = reader.readLine(prompt);
 
+            Statistics statistics = new Statistics();
+            DataLoader loader = new DataLoader(statistics);
 
-            if (!parser.load(line)) {
-                System.out.println("Cant load files!");
+
+            if (!loader.loadPaths(line)) {
+                System.out.println("Cant loadPaths files!");
                 System.exit(0);
             } else {
-                parser.fetchAll();
+                try{
+                    loader.fetchAll();
+                }catch (FileNotFoundException ex){
+                    terminal.writer().print(ex.getMessage());
+                }
 
                 Map<String, ICommand> commands = new HashMap<>();
-
-                Statistics statistics = new Statistics();
-                statistics.load(parser.getLoadedJSONJudgments(), parser.getJudges());
 
                 commands.put("topJudges", new JudgesStatistics(statistics));
                 commands.put("topRegulations", new RegulationStatistics(statistics));
                 commands.put("courts", new CourtStatistics(statistics));
                 commands.put("judgesToJudgment", new JudgmentStatistics(statistics));
                 commands.put("years", new TimeStatistics(statistics));
-                commands.put("rubrum", new DisplayRubrums(parser));
-                commands.put("justification", new DisplayJustifications(parser));
+                commands.put("rubrum", new DisplayRubrums(loader));
+                commands.put("justification", new DisplayJustifications(loader));
                 commands.put("help", new HelpCommand(commands));
 
                 while (true) {

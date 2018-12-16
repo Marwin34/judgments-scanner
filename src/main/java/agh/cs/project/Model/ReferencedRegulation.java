@@ -1,5 +1,6 @@
 package agh.cs.project.Model;
 
+import agh.cs.project.HTMLCLasses.HTMLRegulation;
 import agh.cs.project.JSONClasses.JSONRegulation;
 
 public class ReferencedRegulation {
@@ -12,6 +13,15 @@ public class ReferencedRegulation {
     private int numberOfReferentions;
 
     public ReferencedRegulation(JSONRegulation regulation){
+        journalTitle = regulation.getJournalTitle();
+        journalNo = regulation.getJournalNo();
+        journalYear = regulation.getJournalYear();
+        journalEntry = regulation.getJournalEntry();
+
+        numberOfReferentions = 0;
+    }
+
+    public ReferencedRegulation(HTMLRegulation regulation){
         journalTitle = regulation.getJournalTitle();
         journalNo = regulation.getJournalNo();
         journalYear = regulation.getJournalYear();
