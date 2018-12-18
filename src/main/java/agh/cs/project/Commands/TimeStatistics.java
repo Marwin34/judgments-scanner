@@ -2,6 +2,7 @@ package agh.cs.project.Commands;
 
 import agh.cs.project.Model.Statistics;
 
+import java.util.List;
 import java.util.Map;
 
 public class TimeStatistics implements ICommand {
@@ -16,7 +17,7 @@ public class TimeStatistics implements ICommand {
         return yearStats();
     }
 
-    public String execute(String[] args) {
+    public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder("Statystyki na miesiace ");
 
         for(String month : args){

@@ -19,14 +19,14 @@ public class RegulationStatistics implements ICommand {
         return getTop10Regulations();
     }
 
-    public String execute(String[] args) {
+    public String execute(List<String> args) {
         return execute();
     }
 
     public String getTop10Regulations() {
         StringBuilder bob = new StringBuilder();
 
-        List<ReferencedRegulation> regulationsByReferentions = new ArrayList<ReferencedRegulation>(statistics.getRegulations().values());
+        List<ReferencedRegulation> regulationsByReferentions = new ArrayList<>(statistics.getRegulations().values());
         Collections.sort(regulationsByReferentions, (o1, o2) -> {
             return o2.getNumberOfReferentions() - o1.getNumberOfReferentions(); // Descending.
         });

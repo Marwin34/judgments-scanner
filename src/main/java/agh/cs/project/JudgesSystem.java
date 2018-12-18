@@ -1,6 +1,7 @@
 package agh.cs.project;
 
 import agh.cs.project.Commands.*;
+import agh.cs.project.Model.DataLoader;
 import agh.cs.project.Model.Statistics;
 import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
@@ -11,8 +12,9 @@ import org.jline.terminal.TerminalBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class JudgesSystem {
 
@@ -57,13 +59,33 @@ public class JudgesSystem {
                 while (true) {
                     try {
                         line = reader.readLine(prompt);
-                        String command = line.split(" ")[0];
+                        Pattern pattern = Pattern.compile("^\\w*");
+                        Matcher commandMatcher = pattern.matcher(line);
+                        Pattern pattern2 = Pattern.compile("\"[^,]*\"");
+                        Matcher argsMatcher = pattern2.matcher(line);
 
-                        if(command.equals("exit"))
-                            System.exit(1);
+                        String output;
 
-                        ICommand commandExecutor = commands.getOrDefault(command, new CommandNotFound());
-                        String output = commandExecutor.execute();
+                        if(commandMatcher.find()){
+                            String command = commandMatcher.group();
+
+                            ICommand commandExecutor = commands.getOrDefault(command, new CommandNotFound());
+
+                            List<String> arguments = new ArrayList<>();
+
+                            while(argsMatcher.find()){
+                                arguments.add(argsMatcher.group());
+                            }
+
+                            if(arguments.size() > 0){
+                                output = commandExecutor.execute(arguments);
+                            }
+                            else{
+                                output = commandExecutor.execute();
+                            }
+                        }else{
+                            output = "Nie znaleziono komendy! " + line;
+                        }
 
                         terminal.writer().print(output);
 

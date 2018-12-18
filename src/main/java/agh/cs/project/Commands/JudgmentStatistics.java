@@ -4,6 +4,7 @@ import agh.cs.project.Model.Statistics;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class JudgmentStatistics implements ICommand {
 
@@ -17,7 +18,7 @@ public class JudgmentStatistics implements ICommand {
         return getJudgesToJudgment();
     }
 
-    public String execute(String[] args) {
+    public String execute(List<String> args) {
         return execute();
     }
 

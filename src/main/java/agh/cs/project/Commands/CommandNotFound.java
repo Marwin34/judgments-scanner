@@ -1,5 +1,7 @@
 package agh.cs.project.Commands;
 
+import java.util.List;
+
 public class CommandNotFound implements ICommand {
     @Override
     public String execute() {
@@ -7,8 +9,8 @@ public class CommandNotFound implements ICommand {
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
+    public String execute(List<String> args) {
+        return execute();
     }
 
     @Override

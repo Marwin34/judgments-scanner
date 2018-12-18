@@ -1,6 +1,8 @@
 package agh.cs.project.Commands;
 
-import agh.cs.project.DataLoader;
+import agh.cs.project.Model.DataLoader;
+
+import java.util.List;
 
 public class DisplayJustifications implements ICommand {
 
@@ -16,7 +18,7 @@ public class DisplayJustifications implements ICommand {
     }
 
     @Override
-    public String execute(String[] args) {
+    public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
         for(String signature : args)
             bob.append(loader.getJudgments().get(signature).showJustification());

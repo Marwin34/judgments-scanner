@@ -1,6 +1,8 @@
 package agh.cs.project.Commands;
 
-import agh.cs.project.DataLoader;
+import agh.cs.project.Model.DataLoader;
+
+import java.util.List;
 
 public class DisplayRubrums implements ICommand {
 
@@ -12,15 +14,17 @@ public class DisplayRubrums implements ICommand {
 
     @Override
     public String execute() {
+        System.out.println("a");
         return null;
     }
 
     @Override
-    public String execute(String[] args) {
+    public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
-        for(String signature : args)
+        for(String signature : args){
+            signature = signature.replaceAll("\"", " ").trim();
             bob.append(loader.getJudgments().get(signature).showRubrum());
-
+        }
         return bob.toString();
     }
 

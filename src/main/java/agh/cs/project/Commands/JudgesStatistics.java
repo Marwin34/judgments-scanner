@@ -2,6 +2,8 @@ package agh.cs.project.Commands;
 
 import agh.cs.project.Model.Statistics;
 
+import java.util.List;
+
 public class JudgesStatistics implements ICommand {
 
     private final Statistics statistics;
@@ -14,7 +16,7 @@ public class JudgesStatistics implements ICommand {
         return getTop10Judges();
     }
 
-    public String execute(String[] args) {
+    public String execute(List<String> args) {
         return execute();
     }
 

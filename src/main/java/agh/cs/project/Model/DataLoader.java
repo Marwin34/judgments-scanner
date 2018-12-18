@@ -1,10 +1,7 @@
-package agh.cs.project;
+package agh.cs.project.Model;
 
 import agh.cs.project.HTMLCLasses.HTMLPareser;
 import agh.cs.project.JSONClasses.JSONParser;
-import agh.cs.project.Model.Judge;
-import agh.cs.project.Model.Judgment;
-import agh.cs.project.Model.Statistics;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +38,7 @@ public class DataLoader {
 
     public boolean loadPaths(String path) throws IOException {
 
-        if (isEmpty(path))
+        if (!isNotEmpty(path))
             return false;
 
         Path directory = Paths.get(path);
@@ -50,8 +47,6 @@ public class DataLoader {
         targets = paths.filter(x -> !x.toFile().isDirectory()).filter(x -> {
             return x.toString().endsWith("html") || x.toString().endsWith("json");
         }).collect(Collectors.toList());
-
-        System.out.println(targets.size());
 
         return true;
     }
@@ -64,10 +59,10 @@ public class DataLoader {
         htmlPareser.fetchAll(judgments, judges);
     }
 
-    private boolean isEmpty(String path) {
-        File directory = new File(path + "\\json");
+    private boolean isNotEmpty(String path) {
+        File directory = new File(path);
 
-        return (checkIfFileExists(directory) && checkIfFileIsDirectory(directory) && checkIfDirectoryIsEmpty(directory));
+        return (checkIfFileExists(directory) && checkIfFileIsDirectory(directory) && !checkIfDirectoryIsEmpty(directory));
     }
 
     private boolean checkIfFileExists(File file) {

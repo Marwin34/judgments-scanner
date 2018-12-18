@@ -1,5 +1,6 @@
 package agh.cs.project.Commands;
 
+import java.util.List;
 import java.util.Map;
 
 public class HelpCommand implements ICommand {
@@ -24,7 +25,7 @@ public class HelpCommand implements ICommand {
     }
 
     @Override
-    public String execute(String[] args) {
+    public String execute(List<String> args) {
         return execute();
     }
 
