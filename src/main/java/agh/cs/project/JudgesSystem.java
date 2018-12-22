@@ -20,22 +20,30 @@ public class JudgesSystem {
 
     public static void main(String[] args) throws IOException {
         try {
-            //TODO komendy z argumentami
+
+            String inputPath;
+            String outputPath;
+
+            if(args.length >= 1){
+                inputPath = args[0];
+            } else inputPath = ".";
+
+
+            if (args.length >= 2){
+                outputPath = args[1];
+            }else outputPath = ".";
+
             //TODO naprawic porownywanie judgment i usunac judgment.signature
             Terminal terminal = TerminalBuilder.builder().system(true).build();
             LineReaderBuilder builder = LineReaderBuilder.builder().terminal(terminal);
             LineReader reader = builder.build();
             String prompt = "<*>";
 
-            terminal.writer().print("Podaj sciezke do folderu aby wycztac jego zawartosc. \n");
             String line;
-            line = reader.readLine(prompt);
-
             Statistics statistics = new Statistics();
             DataLoader loader = new DataLoader(statistics);
 
-
-            if (!loader.loadPaths(line)) {
+            if (!loader.loadPaths(inputPath)) {
                 System.out.println("Cant loadPaths files!");
                 System.exit(0);
             } else {
@@ -47,13 +55,16 @@ public class JudgesSystem {
 
                 Map<String, ICommand> commands = new HashMap<>();
 
-                commands.put("topJudges", new JudgesStatistics(statistics));
-                commands.put("topRegulations", new RegulationStatistics(statistics));
+
+                //TODO add judge command, add jury command, add months command
+                commands.put("judges", new JudgesStatistics(statistics));
+                commands.put("regulations", new RegulationStatistics(statistics));
                 commands.put("courts", new CourtStatistics(statistics));
                 commands.put("judgesToJudgment", new JudgmentStatistics(statistics));
                 commands.put("years", new TimeStatistics(statistics));
                 commands.put("rubrum", new DisplayRubrums(loader));
-                commands.put("justification", new DisplayJustifications(loader));
+                commands.put("content", new DisplayJustifications(loader));
+                commands.put("exit", new ExitCommand());
                 commands.put("help", new HelpCommand(commands));
 
                 while (true) {
@@ -68,7 +79,6 @@ public class JudgesSystem {
 
                         if(commandMatcher.find()){
                             String command = commandMatcher.group();
-
                             ICommand commandExecutor = commands.getOrDefault(command, new CommandNotFound());
 
                             List<String> arguments = new ArrayList<>();
