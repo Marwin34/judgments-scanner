@@ -33,7 +33,6 @@ public class JudgesSystem {
                 outputPath = args[1];
             }else outputPath = ".";
 
-            //TODO naprawic porownywanie judgment i usunac judgment.signature
             Terminal terminal = TerminalBuilder.builder().system(true).build();
             LineReaderBuilder builder = LineReaderBuilder.builder().terminal(terminal);
             LineReader reader = builder.build();
@@ -55,8 +54,6 @@ public class JudgesSystem {
 
                 Map<String, ICommand> commands = new HashMap<>();
 
-
-                //TODO add months command
                 commands.put("judges", new JudgesCommand(statistics));
                 commands.put("judge", new JudgeCommand(loader));
                 commands.put("jury", new JuryCommand(statistics));

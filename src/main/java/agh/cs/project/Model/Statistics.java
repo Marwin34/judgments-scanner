@@ -6,7 +6,6 @@ public class Statistics {
 
     private ArrayList<Court> courtsStats;
     private Map<Integer, ReferencedRegulation> regulations;
-    private HashMap<String, Integer> judgmentJudgesStats;
     private HashMap<Integer, Integer> judgmentsOverMonths;
     private List<Judge> judgesByJudgments;
     private Map<Integer, Integer> juryStatistic;
@@ -14,7 +13,6 @@ public class Statistics {
     public Statistics() {
         courtsStats = new ArrayList<>();
         regulations = new HashMap<>();
-        judgmentJudgesStats = new HashMap<>();
         judgmentsOverMonths = new HashMap<>();
         judgesByJudgments = new ArrayList<>();
         juryStatistic = new HashMap<>();
@@ -24,7 +22,6 @@ public class Statistics {
         convertJudgesToTop10(judges);
         for (IJudgment judgment : judgments) {
             createYearlyStatistics(judgment);
-            judgesNumberToJudgment(judgment);
             createJuryStatistics(judgment);
             createCourt(judgment);
             createRegulationStats(judgment.getReferencedRegulations());
@@ -52,10 +49,6 @@ public class Statistics {
         judgesByJudgments.sort((o1, o2) -> {
             return o2.getNumberOfCases() - o1.getNumberOfCases(); // Descending.
         });
-    }
-
-    private void judgesNumberToJudgment(IJudgment judgment) {
-        judgmentJudgesStats.put(judgment.getSignature(), judgment.numberOfJudges());
     }
 
     private void createYearlyStatistics(IJudgment judgment) {
@@ -91,9 +84,15 @@ public class Statistics {
         for(AbstractRegulation regulation : referencedRegulations){
             ReferencedRegulation newRegulation = new ReferencedRegulation(regulation);
 
-            if(regulations.containsValue(newRegulation)){
+            if(regulations.containsValue(newRegulation)){ // jesli istnieje juz taki odnosnik po prostu inkrementujemy
                 regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
             }else{
+                for(ReferencedRegulation value : regulations.values()) { // sprawdzamy czy odnosnik nie istnieje pod innym kluczem numerycznym
+                    if (value.getJournalTitle().equals(newRegulation.getJournalTitle())) {
+                        regulations.get(value.hashCode()).incremenetNumberOfReferentions();
+                        return;
+                    }
+                }
                 regulations.put(newRegulation.hashCode(), newRegulation);
             }
         }
@@ -105,10 +104,6 @@ public class Statistics {
 
     public Map<Integer, ReferencedRegulation> getRegulations() {
         return regulations;
-    }
-
-    public HashMap<String, Integer> getJudgmentJudgesStats() {
-        return judgmentJudgesStats;
     }
 
     public HashMap<Integer, Integer> getJudgmentsOverMonths() {

@@ -29,15 +29,13 @@ public class ReferencedRegulation {
 
         ReferencedRegulation that = (ReferencedRegulation) o;
 
-        if (journalNo != that.journalNo) return false;
         if (journalYear != that.journalYear) return false;
         return journalEntry == that.journalEntry;
     }
 
     @Override
     public int hashCode() {
-        int result = journalNo;
-        result = 31 * result + journalYear;
+        int result = journalYear;
         result = 31 * result + journalEntry;
         return result;
     }
@@ -49,5 +47,9 @@ public class ReferencedRegulation {
 
     public int getNumberOfReferentions() {
         return numberOfReferentions;
+    }
+
+    public String getJournalTitle() {
+        return journalTitle;
     }
 }
