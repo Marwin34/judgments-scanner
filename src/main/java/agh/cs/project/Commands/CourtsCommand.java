@@ -4,12 +4,12 @@ import agh.cs.project.Model.Statistics;
 
 import java.util.List;
 
-public class CourtStatistics implements ICommand {
+public class CourtsCommand implements ICommand {
 
     private final Statistics statistics;
 
 
-    public CourtStatistics(Statistics statistics) {
+    public CourtsCommand(Statistics statistics) {
         this.statistics = statistics;
     }
 

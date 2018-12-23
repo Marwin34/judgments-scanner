@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RegulationStatistics implements ICommand {
+public class RegulationsCommand implements ICommand {
 
     private Statistics statistics;
 
-    public RegulationStatistics(Statistics statistics) {
+    public RegulationsCommand(Statistics statistics) {
         this.statistics = statistics;
     }
 
@@ -41,6 +41,6 @@ public class RegulationStatistics implements ICommand {
 
     @Override
     public String description() {
-        return "Wystetla cytowane prawa.";
+        return "Display most quoted regulations.";
     }
 }

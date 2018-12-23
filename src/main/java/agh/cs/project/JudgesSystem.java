@@ -56,14 +56,15 @@ public class JudgesSystem {
                 Map<String, ICommand> commands = new HashMap<>();
 
 
-                //TODO add judge command, add jury command, add months command
-                commands.put("judges", new JudgesStatistics(statistics));
-                commands.put("regulations", new RegulationStatistics(statistics));
-                commands.put("courts", new CourtStatistics(statistics));
-                commands.put("judgesToJudgment", new JudgmentStatistics(statistics));
-                commands.put("years", new TimeStatistics(statistics));
-                commands.put("rubrum", new DisplayRubrums(loader));
-                commands.put("content", new DisplayJustifications(loader));
+                //TODO add months command
+                commands.put("judges", new JudgesCommand(statistics));
+                commands.put("judge", new JudgeCommand(loader));
+                commands.put("jury", new JuryCommand(statistics));
+                commands.put("regulations", new RegulationsCommand(statistics));
+                commands.put("courts", new CourtsCommand(statistics));
+                commands.put("months", new MonthsCommand(statistics));
+                commands.put("rubrum", new RubrumCommand(loader));
+                commands.put("content", new ContentCommand(loader));
                 commands.put("exit", new ExitCommand());
                 commands.put("help", new HelpCommand(commands));
 

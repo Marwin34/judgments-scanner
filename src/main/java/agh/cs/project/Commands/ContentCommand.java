@@ -4,17 +4,16 @@ import agh.cs.project.Model.DataLoader;
 
 import java.util.List;
 
-public class DisplayRubrums implements ICommand {
+public class ContentCommand implements ICommand {
 
     private final DataLoader loader;
 
-    public DisplayRubrums(DataLoader loader) {
+    public ContentCommand(DataLoader loader) {
         this.loader = loader;
     }
 
     @Override
     public String execute() {
-        System.out.println("a");
         return null;
     }
 
@@ -23,13 +22,20 @@ public class DisplayRubrums implements ICommand {
         StringBuilder bob = new StringBuilder();
         for(String signature : args){
             signature = signature.replaceAll("\"", " ").trim();
-            bob.append(loader.getJudgments().get(signature).showRubrum());
+            if(loader.getJudgments().containsKey(signature)){
+                bob.append(loader.getJudgments().get(signature).showJustification())
+                        .append("\n");
+            }else {
+                bob.append("There is no judgment specified by ")
+                        .append(signature);
+            }
+
         }
         return bob.toString();
     }
 
     @Override
     public String description() {
-        return "Wyswietla metryke danej sprawy.";
+        return "Wyswietla uzasadnienie danego orzeczenia.";
     }
 }

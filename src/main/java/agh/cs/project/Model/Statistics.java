@@ -4,46 +4,20 @@ import java.util.*;
 
 public class Statistics {
 
-    public class MonthsElement {
-        private int[] judgmentsPerMonth;
-
-        public MonthsElement() {
-            judgmentsPerMonth = new int[12];
-
-            for (int i = 0; i < 12; i++)
-                judgmentsPerMonth[i] = 0;
-        }
-
-        @Override
-        public String toString() {
-            String months[] = {"Styczen", "Luty", "Marzec", "Kwiecien", "Maj", "Czerwiec", "Lipiec", "Sierpien", "Wrzesien",
-                    "Pazdziernik", "Listopad", "Grudizen" };
-
-            StringBuilder bob = new StringBuilder("Statystyki wg. miesiecy:\n");
-            for (int i = 0; i < 12; i++) {
-                bob.append(months[i]).append(" : ").append(judgmentsPerMonth[i]).append("\n");
-            }
-
-            return bob.toString();
-        }
-
-        public void increment(int month) {
-            judgmentsPerMonth[month]++;
-        }
-    }
-
     private ArrayList<Court> courtsStats;
     private Map<Integer, ReferencedRegulation> regulations;
     private HashMap<String, Integer> judgmentJudgesStats;
-    private HashMap<String, MonthsElement> judgmentsStatisticsOverYears;
+    private HashMap<Integer, Integer> judgmentsOverMonths;
     private List<Judge> judgesByJudgments;
+    private Map<Integer, Integer> juryStatistic;
 
     public Statistics() {
         courtsStats = new ArrayList<>();
         regulations = new HashMap<>();
         judgmentJudgesStats = new HashMap<>();
-        judgmentsStatisticsOverYears = new HashMap<>();
+        judgmentsOverMonths = new HashMap<>();
         judgesByJudgments = new ArrayList<>();
+        juryStatistic = new HashMap<>();
     }
 
     public void load(List<IJudgment> judgments, Map<String, Judge> judges) {
@@ -51,9 +25,17 @@ public class Statistics {
         for (IJudgment judgment : judgments) {
             createYearlyStatistics(judgment);
             judgesNumberToJudgment(judgment);
+            createJuryStatistics(judgment);
             createCourt(judgment);
             createRegulationStats(judgment.getReferencedRegulations());
         }
+    }
+
+    private void createJuryStatistics(IJudgment judgment){
+        if(juryStatistic.containsKey(judgment.numberOfJudges())){
+            juryStatistic.put(judgment.numberOfJudges(), juryStatistic.get(judgment.numberOfJudges()) + 1);
+        }else
+            juryStatistic.put(judgment.numberOfJudges(), 1);
     }
 
     private void convertJudgesToTop10(Map<String, Judge> judges){
@@ -77,21 +59,18 @@ public class Statistics {
     }
 
     private void createYearlyStatistics(IJudgment judgment) {
-        String year = judgment.getJudgmentDate().split("-")[0];
         String id = judgment.getJudgmentDate().split("-")[1];
 
         int i = Integer.parseInt(id) - 1;
-        addToMonth(year, i);
+        addToMonth(i);
     }
 
-    private void addToMonth(String year, int i) {
-        if (i >= 0 && i < 12) {
-            if (judgmentsStatisticsOverYears.get(year) == null) {
-                MonthsElement element = new MonthsElement();
-                element.increment(i);
-                judgmentsStatisticsOverYears.put(year, element);
+    private void addToMonth(int month) {
+        if (month >= 0 && month < 12) {
+            if (judgmentsOverMonths.containsKey(month)) {
+                judgmentsOverMonths.put(month, judgmentsOverMonths.get(month) + 1);
             } else {
-                judgmentsStatisticsOverYears.get(year).increment(i);
+                judgmentsOverMonths.put(month, 1);
             }
         }
     }
@@ -132,11 +111,15 @@ public class Statistics {
         return judgmentJudgesStats;
     }
 
-    public HashMap<String, MonthsElement> getJudgmentsStatisticsOverYears() {
-        return judgmentsStatisticsOverYears;
+    public HashMap<Integer, Integer> getJudgmentsOverMonths() {
+        return judgmentsOverMonths;
     }
 
     public List<Judge> getJudgesByJudgments() {
         return judgesByJudgments;
+    }
+
+    public Map<Integer, Integer> getJuryStatistic() {
+        return juryStatistic;
     }
 }
