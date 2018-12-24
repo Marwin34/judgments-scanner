@@ -14,26 +14,28 @@ public class JudgeCommand implements ICommand {
 
     @Override
     public String execute() {
-        return "You need to specify judge. \n";
+        return "You need to specify judge." + System.lineSeparator();
     }
 
     @Override
     public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
 
-        for(String judge : args){
+        for (String judge : args) {
             judge = judge.replaceAll("\"", " ").trim();
-            if(loader.getJudges().containsKey(judge)){
+            if (loader.getJudges().containsKey(judge)) {
                 bob
                         .append(judge)
                         .append(": ")
                         .append(loader.getJudges()
-                        .get(judge).getNumberOfCases())
-                        .append(" judgement(s). \n");
-            }else{
+                                .get(judge).getNumberOfCases())
+                        .append(" judgement(s).")
+                        .append(System.lineSeparator());
+            } else {
                 bob
                         .append(judge)
-                        .append(" not exists. \n");
+                        .append(" not exists.")
+                        .append(System.lineSeparator());
             }
         }
 

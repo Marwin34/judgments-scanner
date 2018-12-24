@@ -27,11 +27,13 @@ public class JuryCommand implements ICommand {
                         .append(judgesNumber)
                         .append(": ")
                         .append(statistics.getJuryStatistic().get(Integer.parseInt(judgesNumber)))
-                        .append(" judgement(s). \n");
+                        .append(" judgement(s).")
+                        .append(System.lineSeparator());
             }else{
                 bob
                         .append(judgesNumber)
-                        .append(" : 0 judgments. \n");
+                        .append(" : 0 judgments.")
+                        .append(System.lineSeparator());
             }
         }
         return bob.toString();

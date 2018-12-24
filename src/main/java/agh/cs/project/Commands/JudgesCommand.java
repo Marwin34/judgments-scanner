@@ -24,7 +24,7 @@ public class JudgesCommand implements ICommand {
         StringBuilder bob = new StringBuilder();
 
         statistics.getJudgesByJudgments().stream().limit(10).map(judge -> judge.getName() + ": " + judge.getNumberOfCases()
-                + "\n").forEach(bob::append);
+                + System.lineSeparator()).forEach(bob::append);
 
         return bob.toString();
     }

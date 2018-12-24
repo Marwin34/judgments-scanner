@@ -5,7 +5,7 @@ import java.util.List;
 public class CommandNotFound implements ICommand {
     @Override
     public String execute() {
-        return "Nieznana komenda. \n";
+        return "Unknown command!" + System.lineSeparator();
     }
 
     @Override

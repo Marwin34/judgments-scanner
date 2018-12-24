@@ -3,6 +3,7 @@ package agh.cs.project;
 import agh.cs.project.Commands.*;
 import agh.cs.project.Model.DataLoader;
 import agh.cs.project.Model.Statistics;
+import javafx.scene.shape.Path;
 import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -10,8 +11,15 @@ import org.jline.reader.UserInterruptException;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,19 +27,22 @@ import java.util.regex.Pattern;
 public class JudgesSystem {
 
     public static void main(String[] args) throws IOException {
+        boolean writeMode = false;
+        Charset charset = Charset.forName("UTF8");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String inputPath = "";
+        String outputPath = "";
+
         try {
-
-            String inputPath;
-            String outputPath;
-
-            if(args.length >= 1){
+            if (args.length >= 1) {
                 inputPath = args[0];
             } else inputPath = ".";
 
 
-            if (args.length >= 2){
+            if (args.length >= 2) {
+                writeMode = true;
                 outputPath = args[1];
-            }else outputPath = ".";
+            }
 
             Terminal terminal = TerminalBuilder.builder().system(true).build();
             LineReaderBuilder builder = LineReaderBuilder.builder().terminal(terminal);
@@ -46,9 +57,9 @@ public class JudgesSystem {
                 System.out.println("Cant loadPaths files!");
                 System.exit(0);
             } else {
-                try{
+                try {
                     loader.fetchAll();
-                }catch (FileNotFoundException ex){
+                } catch (FileNotFoundException ex) {
                     terminal.writer().print(ex.getMessage());
                 }
 
@@ -73,34 +84,40 @@ public class JudgesSystem {
                         Pattern pattern2 = Pattern.compile("\"[^,]*\"");
                         Matcher argsMatcher = pattern2.matcher(line);
 
-                        String output;
+                        String output = "";
 
-                        if(commandMatcher.find()){
-                            String command = commandMatcher.group();
+                        String command = "";
+                        List<String> arguments = new ArrayList<>();
+
+                        if (commandMatcher.find()) {
+                            command = commandMatcher.group();
                             ICommand commandExecutor = commands.getOrDefault(command, new CommandNotFound());
 
-                            List<String> arguments = new ArrayList<>();
-
-                            while(argsMatcher.find()){
+                            while (argsMatcher.find()) {
                                 arguments.add(argsMatcher.group());
                             }
 
-                            if(arguments.size() > 0){
+                            if (arguments.size() > 0) {
                                 output = commandExecutor.execute(arguments);
-                            }
-                            else{
+                            } else {
                                 output = commandExecutor.execute();
                             }
-                        }else{
-                            output = "Nie znaleziono komendy! " + line;
+                        } else {
+                            output = "Specify command. To list available commands use help." + line;
                         }
 
                         terminal.writer().print(output);
+
+                        if(writeMode){
+                            saveToFile(outputPath, command, String.join(", ", arguments), output);
+                        }
 
                     } catch (UserInterruptException e) {
                         // Ignore
                     } catch (EndOfFileException e) {
                         return;
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
                     }
                 }
             }
@@ -109,5 +126,15 @@ public class JudgesSystem {
             System.out.println(ex.getMessage());
             System.exit(0);
         }
+    }
+
+    private static void saveToFile(String outputPath, String command, String arguments, String output) throws IOException {
+        Date date = new Date();
+        Charset charset = Charset.forName("UTF-8");
+
+        String toWrite = date.toString() + " " + command + " " + arguments + " " + System.lineSeparator() + output;
+        BufferedWriter writer = Files.newBufferedWriter(Paths.get(outputPath), charset, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        writer.write(toWrite, 0, toWrite.length());
+        writer.close();
     }
 }

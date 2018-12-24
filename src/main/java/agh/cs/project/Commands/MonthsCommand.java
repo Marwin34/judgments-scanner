@@ -35,10 +35,12 @@ public class MonthsCommand implements ICommand {
                 bob.append(months[i])
                         .append(": ")
                         .append(statistics.getJudgmentsOverMonths().get(i))
-                        .append(" judgments.\n");
+                        .append(" judgments.")
+                        .append(System.lineSeparator());
             } else
                 bob.append(months[i])
-                        .append(": 0 judgments.\n");
+                        .append(": 0 judgments.")
+                        .append(System.lineSeparator());
         }
         return bob.toString();
     }

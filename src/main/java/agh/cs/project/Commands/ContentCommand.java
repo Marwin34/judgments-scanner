@@ -24,7 +24,7 @@ public class ContentCommand implements ICommand {
             signature = signature.replaceAll("\"", " ").trim();
             if(loader.getJudgments().containsKey(signature)){
                 bob.append(loader.getJudgments().get(signature).showJustification())
-                        .append("\n");
+                        .append(System.lineSeparator());
             }else {
                 bob.append("There is no judgment specified by ")
                         .append(signature);
