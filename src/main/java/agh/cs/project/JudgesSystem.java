@@ -3,7 +3,6 @@ package agh.cs.project;
 import agh.cs.project.Commands.*;
 import agh.cs.project.Model.DataLoader;
 import agh.cs.project.Model.Statistics;
-import javafx.scene.shape.Path;
 import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -28,8 +27,7 @@ public class JudgesSystem {
 
     public static void main(String[] args) throws IOException {
         boolean writeMode = false;
-        Charset charset = Charset.forName("UTF8");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
         String inputPath = "";
         String outputPath = "";
 
@@ -129,7 +127,9 @@ public class JudgesSystem {
     }
 
     private static void saveToFile(String outputPath, String command, String arguments, String output) throws IOException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
+        dateFormat.format(date);
         Charset charset = Charset.forName("UTF-8");
 
         String toWrite = date.toString() + " " + command + " " + arguments + " " + System.lineSeparator() + output;
