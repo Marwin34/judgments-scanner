@@ -36,10 +36,24 @@ public class JudgesSystem {
                 inputPath = args[0];
             } else inputPath = ".";
 
-
             if (args.length >= 2) {
-                writeMode = true;
-                outputPath = args[1];
+                if (args[1].matches("^(\\./)?(\\w+/{1})*\\w+\\.txt$")) {
+                    String pathToDirectory = "";
+
+                    if (args[1].lastIndexOf("/") > -1) {
+                        pathToDirectory = args[1].substring(0, args[1].lastIndexOf("/"));
+                    }
+
+                    if ((Paths.get(pathToDirectory).toFile().exists() && Paths.get(pathToDirectory).toFile().isDirectory())
+                            || pathToDirectory.equals("")) {
+                        writeMode = true;
+                        outputPath = args[1];
+                    } else {
+                        System.out.println("Directory not exists " + pathToDirectory + "!");
+                    }
+                } else {
+                    System.out.println("Unsupported path to file " + args[1] + ".");
+                }
             }
 
             Terminal terminal = TerminalBuilder.builder().system(true).build();
@@ -52,7 +66,7 @@ public class JudgesSystem {
             DataLoader loader = new DataLoader(statistics);
 
             if (!loader.loadPaths(inputPath)) {
-                System.out.println("Cant loadPaths files!");
+                System.out.println("Cant load files!");
                 System.exit(0);
             } else {
                 try {
@@ -106,7 +120,7 @@ public class JudgesSystem {
 
                         terminal.writer().print(output);
 
-                        if(writeMode){
+                        if (writeMode) {
                             saveToFile(outputPath, command, String.join(", ", arguments), output);
                         }
 
@@ -115,7 +129,7 @@ public class JudgesSystem {
                     } catch (EndOfFileException e) {
                         return;
                     } catch (IOException e) {
-                        System.out.println(e.getMessage());
+                        System.out.println("Erorr " + e.getMessage() + ": cant open location of file!");
                     }
                 }
             }
