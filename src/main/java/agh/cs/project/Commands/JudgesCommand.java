@@ -4,6 +4,8 @@ import agh.cs.project.Model.Statistics;
 
 import java.util.List;
 
+import static org.fusesource.jansi.Ansi.ansi;
+
 public class JudgesCommand implements ICommand {
 
     private final Statistics statistics;
@@ -23,8 +25,7 @@ public class JudgesCommand implements ICommand {
     public String getTop10Judges() {
         StringBuilder bob = new StringBuilder();
 
-        statistics.getJudgesByJudgments().stream().limit(10).map(judge -> judge.getName() + ": " + judge.getNumberOfCases()
-                + System.lineSeparator()).forEach(bob::append);
+        statistics.getJudgesByJudgments().stream().limit(10).map(judge -> ansi().format("%-25s %s%n",judge.getName(), judge.getNumberOfCases())).forEach(bob::append);
 
         return bob.toString();
     }

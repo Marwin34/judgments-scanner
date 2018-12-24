@@ -26,8 +26,8 @@ import java.util.regex.Pattern;
 public class JudgesSystem {
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Welcome to judgment scanner!");
         boolean writeMode = false;
-
         String inputPath = "";
         String outputPath = "";
 
@@ -118,7 +118,10 @@ public class JudgesSystem {
                             output = "Specify command. To list available commands use help." + line;
                         }
 
+                        //TODO jansi format
                         terminal.writer().print(output);
+
+                        terminal.writer().print(writeMode);
 
                         if (writeMode) {
                             saveToFile(outputPath, command, String.join(", ", arguments), output);
@@ -129,7 +132,7 @@ public class JudgesSystem {
                     } catch (EndOfFileException e) {
                         return;
                     } catch (IOException e) {
-                        System.out.println("Erorr " + e.getMessage() + ": cant open location of file!");
+                        System.out.println("Erorr " + e.getMessage() + ": cant save to file!");
                     }
                 }
             }

@@ -26,7 +26,6 @@ public class HTMLPareser {
     public void load(List<Path> targets) throws IOException {
         for (Path file : targets) {
             if (file.toString().endsWith(".html")) {
-                System.out.println("Load " + file.toString());
                 loadedHTMLJudgmesnts.add(new HTMLJudgment(Jsoup.parse(file.toFile(), "UTF-8")));
             }
         }

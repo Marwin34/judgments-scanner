@@ -21,7 +21,6 @@ public class JSONParser {
     public void load(List<Path> targets) throws FileNotFoundException {
         for (Path file : targets) {
             if (file.toString().endsWith(".json")) {
-                System.out.println("Load " + file.toString());
                 loadedJSONJudgments.addAll(gson.fromJson(new FileReader(file.toString()), JSONTemplateClass.class).items);
             }
         }
