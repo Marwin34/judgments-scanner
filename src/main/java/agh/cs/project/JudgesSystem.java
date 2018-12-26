@@ -110,9 +110,8 @@ public class JudgesSystem {
                         //TODO jansi format
                         terminalHandler.write(output);
 
-                        if (writeMode) {
+                        if (writeMode)
                             fileWriter.saveToFile(line, output);
-                        }
 
                     } catch (UserInterruptException e) {
                         // Ignore

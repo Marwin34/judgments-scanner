@@ -76,8 +76,8 @@ public class Statistics {
                 court.incrementNumberOfJudgments();
                 return;
             }
-        }
-        courtsStats.add(newCourt);
+        }if(!newCourt.isDumb())
+            courtsStats.add(newCourt);
     }
 
     private void createRegulationStats(List<AbstractRegulation> referencedRegulations){

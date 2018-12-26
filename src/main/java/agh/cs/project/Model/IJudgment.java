@@ -7,7 +7,7 @@ public interface IJudgment {
 
     String getSignature();
 
-    String getCourtType();
+    CourtType getCourtType();
 
     String getJudgmentDate();
 

@@ -2,10 +2,10 @@ package agh.cs.project.Model;
 
 public class Court {
 
-    private String courtType;
+    private CourtType courtType;
     private int numberOfJudgments;
 
-    public Court(String courtType) {
+    public Court(CourtType courtType) {
         this.courtType = courtType;
         numberOfJudgments = 0;
     }
@@ -20,7 +20,7 @@ public class Court {
 
     @Override
     public String toString(){
-        return courtType + ": " + numberOfJudgments;
+        return courtType.toString();
     }
 
     @Override
@@ -31,5 +31,9 @@ public class Court {
         Court court = (Court) o;
 
         return courtType != null ? courtType.equals(court.courtType) : court.courtType == null;
+    }
+
+    public boolean isDumb(){
+        return courtType == CourtType.DUMB;
     }
 }

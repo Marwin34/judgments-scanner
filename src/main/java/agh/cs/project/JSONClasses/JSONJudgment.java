@@ -3,13 +3,14 @@ package agh.cs.project.JSONClasses;
 import agh.cs.project.Model.AbstractJudge;
 import agh.cs.project.Model.AbstractRegulation;
 import agh.cs.project.Model.IJudgment;
+import agh.cs.project.Model.CourtType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JSONJudgment implements IJudgment {
 
-    private String courtType;
+    private CourtType courtType;
     private List<JSONCourtCase> courtCases;
     private List<JSONJudge> judges;
     private String textContent;
@@ -36,7 +37,7 @@ public class JSONJudgment implements IJudgment {
     }
 
     @Override
-    public String getCourtType(){
+    public CourtType getCourtType(){
         return courtType;
     }
 

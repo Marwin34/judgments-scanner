@@ -2,7 +2,9 @@ package agh.cs.project.HTMLCLasses;
 
 import agh.cs.project.Model.AbstractJudge;
 import agh.cs.project.Model.AbstractRegulation;
+import agh.cs.project.Model.CourtType;
 import agh.cs.project.Model.IJudgment;
+import agh.cs.project.Utilities.CourtTypeConverter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class HTMLJudgment implements IJudgment {
     private String signature;
-    private String courtType;
+    private CourtType courtType;
     private String judgmentDate;
     private String justification;
     private List<AbstractRegulation> referencedRegulations;
@@ -29,7 +31,7 @@ public class HTMLJudgment implements IJudgment {
         String header = body.getElementsByClass("war_header").text();
         signature = header.substring(0, header.indexOf('-') - 1);
         judgmentDate = body.getElementsByClass("niezaznaczona").get(0).text().split(" ")[2];
-        courtType = body.getElementsByClass("niezaznaczona").get(2).text().substring(4);
+        courtType = CourtTypeConverter.convert(body.getElementsByClass("niezaznaczona").get(2).text().substring(4));
 
         Elements justyficationElements = body.select(".niezaznaczona > .info-list-label-uzasadnienie");
         justification = justyficationElements.stream().map(Element::text).collect(Collectors.joining("\n"));
@@ -92,7 +94,7 @@ public class HTMLJudgment implements IJudgment {
     }
 
     @Override
-    public String getCourtType() {
+    public CourtType getCourtType() {
         return courtType;
     }
 

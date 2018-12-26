@@ -8,7 +8,7 @@ public class Judgment {
 
     private String signature;
     private String judgmentDate;
-    private String courtType;
+    private CourtType courtType;
     private ArrayList<Judge> judges;
     private String justification;
 
