@@ -15,6 +15,4 @@ public class JSONJudge extends AbstractJudge {
         return specialRoles;
     }
 
-
-
 }

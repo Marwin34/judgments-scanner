@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 public class DataLoader {
 
     private JSONParser jsonParser;
@@ -28,7 +27,7 @@ public class DataLoader {
 
     private HashMap<String, Judgment> judgments;
 
-    public DataLoader(Statistics statistics){
+    public DataLoader(Statistics statistics) {
         targets = new ArrayList<>();
         jsonParser = new JSONParser(statistics);
         htmlPareser = new HTMLPareser(statistics);
@@ -37,16 +36,11 @@ public class DataLoader {
     }
 
     public boolean loadPaths(String path) throws IOException {
-
-        if (!isNotEmpty(path))
-            return false;
-
         Path directory = Paths.get(path);
 
         Stream<Path> paths = Files.walk(directory);
-        targets = paths.filter(x -> !x.toFile().isDirectory()).filter(x -> {
-            return x.toString().endsWith("html") || x.toString().endsWith("json");
-        }).collect(Collectors.toList());
+        targets = paths.filter(x -> !x.toFile().isDirectory()).filter(x -> x.toString().endsWith("html")
+                || x.toString().endsWith("json")).collect(Collectors.toList());
 
         return true;
     }
@@ -57,28 +51,6 @@ public class DataLoader {
 
         htmlPareser.load(targets);
         htmlPareser.fetchAll(judgments, judges);
-    }
-
-    private boolean isNotEmpty(String path) {
-        File directory = new File(path);
-
-        return (checkIfFileExists(directory) && checkIfFileIsDirectory(directory) && !checkIfDirectoryIsEmpty(directory));
-    }
-
-    private boolean checkIfFileExists(File file) {
-        return file.exists();
-    }
-
-    private boolean checkIfFileIsDirectory(File file) {
-        return file.isDirectory();
-    }
-
-    private boolean checkIfDirectoryIsEmpty(File dir) {
-        if (checkIfFileExists(dir)) {
-            return dir.listFiles().length == 0;
-        }
-
-        return false;
     }
 
     public Map<String, Judge> getJudges() {

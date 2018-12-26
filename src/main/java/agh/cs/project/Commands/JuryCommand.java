@@ -13,7 +13,7 @@ public class JuryCommand implements ICommand {
 
     @Override
     public String execute() {
-        return "Specify number of judges.";
+        return "Specify number of judges." + System.lineSeparator();
     }
 
     @Override
