@@ -21,7 +21,6 @@ public class ContentCommand implements ICommand {
     public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
         for(String signature : args){
-            signature = signature.replaceAll("\"", " ").trim();
             if(loader.getJudgments().containsKey(signature)){
                 bob.append(loader.getJudgments().get(signature).showJustification())
                         .append(System.lineSeparator());

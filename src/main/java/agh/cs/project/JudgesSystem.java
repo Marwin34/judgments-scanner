@@ -55,15 +55,13 @@ public class JudgesSystem {
 
         String line;
 
-
-
         System.out.println("Welcome to judgment scanner!");
 
         try {
             if (args.length >= 1) {
-                if(isStandardPath(args[0]) && isNotEmpty(args[0])){
+                if (isStandardPath(args[0]) && isNotEmpty(args[0])) {
                     inputPath = args[0];
-                }else{
+                } else {
                     System.out.println("Folder with data doesn't exits or is empty.");
                     System.exit(0);
                 }
@@ -78,7 +76,7 @@ public class JudgesSystem {
                         pathToDirectory = args[1].substring(0, args[1].lastIndexOf("/"));
                     }
 
-                    if (checkIfFileExists(new File(pathToDirectory)) && checkIfFileIsDirectory(new File(pathToDirectory))){
+                    if (checkIfFileExists(new File(pathToDirectory)) && checkIfFileIsDirectory(new File(pathToDirectory))) {
                         writeMode = true;
                         outputPath = args[1];
                     } else {
@@ -107,33 +105,33 @@ public class JudgesSystem {
                         Pattern pattern2 = Pattern.compile("\"[^,]*\"");
                         Matcher argsMatcher = pattern2.matcher(line);
 
+                        Pattern universalPattern = Pattern.compile("(\"\\w+\\s?\\w+\"|\\w+)");
+                        Matcher universalMatcher = universalPattern.matcher(line);
+
                         String output = "";
-
                         String command = "";
-                        List<String> arguments = new ArrayList<>();
 
-                        if (commandMatcher.find()) {
-                            command = commandMatcher.group();
+                        List<String> words = new ArrayList<>();
+                        while (universalMatcher.find()){
+                            words.add(universalMatcher.group().replaceAll("\"", " ").trim());
+                        }
+
+                        if(words.size() >= 1){
+                            command = words.get(0);
                             ICommand commandExecutor = commands.getOrDefault(command, new CommandNotFound());
 
-                            while (argsMatcher.find()) {
-                                arguments.add(argsMatcher.group());
-                            }
-
-                            if (arguments.size() > 0) {
-                                output = commandExecutor.execute(arguments);
-                            } else {
+                            if(words.size() >= 2){
+                                output = commandExecutor.execute(words.subList(1, words.size()));
+                            }else {
                                 output = commandExecutor.execute();
                             }
-                        } else {
-                            output = "Specify command. To list available commands use help." + line;
                         }
 
                         //TODO jansi format
                         terminal.writer().print(output);
 
                         if (writeMode) {
-                            saveToFile(outputPath, command, String.join(", ", arguments), output);
+                            saveToFile(outputPath, line, output);
                         }
 
                     } catch (UserInterruptException e) {
@@ -152,20 +150,20 @@ public class JudgesSystem {
         }
     }
 
-    private static void saveToFile(String outputPath, String command, String arguments, String output) throws IOException {
+    private static void saveToFile(String outputPath, String command, String output) throws IOException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         dateFormat.format(date);
         Charset charset = Charset.forName("UTF-8");
 
-        String toWrite = date.toString() + " " + command + " " + arguments + " " + System.lineSeparator() + output;
+        String toWrite = date.toString() + ": " + command + " " + System.lineSeparator() + output;
         BufferedWriter writer = Files.newBufferedWriter(Paths.get(outputPath), charset, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         writer.write(toWrite, 0, toWrite.length());
         writer.close();
     }
 
-    private static boolean isStandardPath(String path){
-        return (path.matches("^(\\./)?(\\w+/{1})*\\w+\\.txt$")) ||(path.matches("\\w*"));
+    private static boolean isStandardPath(String path) {
+        return (path.matches("^(\\./)?(\\w+/{1})*\\w+\\.txt$")) || (path.matches("\\w*"));
     }
 
     private static boolean isNotEmpty(String path) {

@@ -22,7 +22,6 @@ public class JudgeCommand implements ICommand {
         StringBuilder bob = new StringBuilder();
 
         for (String judge : args) {
-            judge = judge.replaceAll("\"", " ").trim();
             if (loader.getJudges().containsKey(judge)) {
                 bob
                         .append(judge)

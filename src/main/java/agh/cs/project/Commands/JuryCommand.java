@@ -21,7 +21,6 @@ public class JuryCommand implements ICommand {
         StringBuilder bob = new StringBuilder();
 
         for(String judgesNumber : args){
-            judgesNumber = judgesNumber.replaceAll("\"", " ").trim();
             if(statistics.getJuryStatistic().containsKey(Integer.parseInt(judgesNumber))){
                 bob
                         .append(judgesNumber)

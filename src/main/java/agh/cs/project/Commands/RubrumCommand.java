@@ -22,7 +22,6 @@ public class RubrumCommand implements ICommand {
     public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
         for(String signature : args){
-            signature = signature.replaceAll("\"", " ").trim();
             bob.append(loader.getJudgments().get(signature).showRubrum());
         }
         return bob.toString();
