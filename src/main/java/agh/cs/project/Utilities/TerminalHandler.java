@@ -8,7 +8,6 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 public class TerminalHandler {
@@ -24,7 +23,7 @@ public class TerminalHandler {
                 .completer(completer)
                 .appName("Judgment scanner");
          reader = builder.build();
-         prompt = "<*>";
+         prompt = "> ";
     }
 
     public void write(String message) {
