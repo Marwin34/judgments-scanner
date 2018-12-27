@@ -1,6 +1,6 @@
 package agh.cs.project.Model;
 
-public class    ReferencedRegulation {
+public class ReferencedRegulation {
 
     private String journalTitle;
     private int journalYear;

@@ -84,13 +84,13 @@ public class Statistics {
         for(AbstractRegulation regulation : toAdd){
             ReferencedRegulation newRegulation = new ReferencedRegulation(regulation);
 
-            if(regulations.containsKey(newRegulation.hashCode())){
+            /*if(regulations.containsKey(newRegulation.hashCode())){
                 regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
             }else{
                 regulations.put(newRegulation.hashCode(), newRegulation);
-            }
+            }*/
 
-            /*if(regulations.containsValue(newRegulation)){ // jesli istnieje juz taki odnosnik po prostu inkrementujemy
+            if(regulations.containsValue(newRegulation)){ // jesli istnieje juz taki odnosnik po prostu inkrementujemy
                 regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
             }else{
                 for(ReferencedRegulation value : regulations.values()) { // sprawdzamy czy odnosnik nie istnieje pod innym kluczem numerycznym
@@ -100,7 +100,7 @@ public class Statistics {
                     }
                 }
                 regulations.put(newRegulation.hashCode(), newRegulation);
-            }*/
+            }
         }
     }
 
