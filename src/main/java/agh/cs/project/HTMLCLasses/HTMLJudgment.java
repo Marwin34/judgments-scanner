@@ -55,16 +55,15 @@ public class HTMLJudgment implements IJudgment {
         Pattern pattern1 = Pattern.compile("\\d{4}\\snr\\s\\d+\\spoz\\s\\d+");
         Pattern pattern2 = Pattern.compile("[A-Z].*$");
 
-        for (String test : referencedText.split("Dz\\.U\\. ")) {
-            Matcher matcher1 = pattern1.matcher(test);
-            Matcher matcher2 = pattern2.matcher(test);
+        for (String innerHTML : referencedText.split("Dz\\.U\\. ")) {
+            Matcher matcher1 = pattern1.matcher(innerHTML);
+            Matcher matcher2 = pattern2.matcher(innerHTML);
             if (matcher1.find() && matcher2.find()) {
                 String parts[] = matcher1.group().split(" ");
                 int jounralYear = Integer.parseInt(parts[0]);
-                int journalNo = Integer.parseInt(parts[2]);
                 int journalEntry = Integer.parseInt(parts[4]);
                 String journalTitle = matcher2.group();
-                referencedRegulations.add(new HTMLRegulation(journalTitle, journalNo, jounralYear, journalEntry));
+                referencedRegulations.add(new HTMLRegulation(journalTitle, jounralYear, journalEntry));
             }
         }
     }

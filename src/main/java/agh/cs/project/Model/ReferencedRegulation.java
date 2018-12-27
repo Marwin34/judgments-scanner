@@ -3,7 +3,6 @@ package agh.cs.project.Model;
 public class ReferencedRegulation {
 
     private String journalTitle;
-    private int journalNo;
     private int journalYear;
     private int journalEntry;
 
@@ -11,7 +10,6 @@ public class ReferencedRegulation {
 
     public ReferencedRegulation(AbstractRegulation regulation){
         journalTitle = regulation.getJournalTitle();
-        journalNo = regulation.getJournalNo();
         journalYear = regulation.getJournalYear();
         journalEntry = regulation.getJournalEntry();
 

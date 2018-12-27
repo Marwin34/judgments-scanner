@@ -7,10 +7,6 @@ public class JSONRegulation extends AbstractRegulation {
         return journalTitle;
     }
 
-    public int getJournalNo() {
-        return journalNo;
-    }
-
     public int getJournalYear() {
         return journalYear;
     }
