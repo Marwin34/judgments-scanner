@@ -58,11 +58,19 @@ public class HTMLJudgment implements IJudgment {
         for (String innerHTML : referencedText.split("Dz\\.U\\. ")) {
             Matcher matcher1 = pattern1.matcher(innerHTML);
             Matcher matcher2 = pattern2.matcher(innerHTML);
-            if (matcher1.find() && matcher2.find()) {
-                String parts[] = matcher1.group().split(" ");
-                int jounralYear = Integer.parseInt(parts[0]);
-                int journalEntry = Integer.parseInt(parts[4]);
+            if (matcher2.find()) {
                 String journalTitle = matcher2.group();
+                int jounralYear = 0;
+                int journalEntry = 0;
+                if(matcher1.find()){
+                    String parts[] = matcher1.group().split(" ");
+                    jounralYear = Integer.parseInt(parts[0]);
+                    journalEntry = Integer.parseInt(parts[4]);
+                }else{
+                   // System.out.println(journalTitle);
+                    jounralYear = journalTitle.length() * 31;
+                    journalEntry = jounralYear * 17;
+                }
                 referencedRegulations.add(new HTMLRegulation(journalTitle, jounralYear, journalEntry));
             }
         }

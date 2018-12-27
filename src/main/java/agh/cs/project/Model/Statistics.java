@@ -1,5 +1,7 @@
 package agh.cs.project.Model;
 
+import agh.cs.project.HTMLCLasses.HTMLRegulation;
+
 import java.util.*;
 
 public class Statistics {
@@ -28,20 +30,20 @@ public class Statistics {
         }
     }
 
-    private void createJuryStatistics(IJudgment judgment){
-        if(juryStatistic.containsKey(judgment.numberOfJudges())){
+    private void createJuryStatistics(IJudgment judgment) {
+        if (juryStatistic.containsKey(judgment.numberOfJudges())) {
             juryStatistic.put(judgment.numberOfJudges(), juryStatistic.get(judgment.numberOfJudges()) + 1);
-        }else
+        } else
             juryStatistic.put(judgment.numberOfJudges(), 1);
     }
 
-    private void convertJudgesToTop10(Map<String, Judge> judges){
-        if(judgesByJudgments.isEmpty()){
+    private void convertJudgesToTop10(Map<String, Judge> judges) {
+        if (judgesByJudgments.isEmpty()) {
             judgesByJudgments.addAll(judges.values());
 
-        }else{
-            for(Map.Entry<String, Judge> judge : judges.entrySet()){
-                if(!judgesByJudgments.contains(judge.getValue()))
+        } else {
+            for (Map.Entry<String, Judge> judge : judges.entrySet()) {
+                if (!judgesByJudgments.contains(judge.getValue()))
                     judgesByJudgments.add(judge.getValue());
             }
         }
@@ -68,32 +70,49 @@ public class Statistics {
         }
     }
 
-    private void createCourt(IJudgment judgment){
+    private void createCourt(IJudgment judgment) {
         Court newCourt = new Court(judgment.getCourtType());
 
-        for(Court court : courtsStats){
-            if(court.equals(newCourt)) {
+        for (Court court : courtsStats) {
+            if (court.equals(newCourt)) {
                 court.incrementNumberOfJudgments();
                 return;
             }
-        }if(!newCourt.isDumb())
+        }
+        if (!newCourt.isDumb())
             courtsStats.add(newCourt);
     }
 
-    private void createRegulationStats(List<AbstractRegulation> toAdd){
-        for(AbstractRegulation regulation : toAdd){
+    private void createRegulationStats(List<AbstractRegulation> toAdd) {
+        for (AbstractRegulation regulation : toAdd) {
             ReferencedRegulation newRegulation = new ReferencedRegulation(regulation);
 
-            if(regulations.containsValue(newRegulation)){ // jesli istnieje juz taki odnosnik po prostu inkrementujemy
-                regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
-            }else{
-                for(ReferencedRegulation value : regulations.values()) { // sprawdzamy czy odnosnik nie istnieje pod innym kluczem numerycznym
+            boolean found = false;
+
+            if (regulation.getClass().equals(HTMLRegulation.class)) { // jesli pochodzi z htmla to postepowanie sie rozni, wyszukujemy tylko po wartosci
+                for (ReferencedRegulation value : regulations.values()) {
                     if (value.getJournalTitle().equals(newRegulation.getJournalTitle())) {
                         regulations.get(value.hashCode()).incremenetNumberOfReferentions();
-                        return;
+                        found = true;
+                        break;
                     }
                 }
-                regulations.put(newRegulation.hashCode(), newRegulation);
+            } else {
+                if (regulations.containsValue(newRegulation)) {
+                    regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
+                    found = true;
+                }
+            }
+            if (!found) {
+                if (regulations.containsKey(newRegulation.hashCode()))
+                    regulations.put(newRegulation.hashCode() + 1, newRegulation);
+
+                int i = 0;
+
+                while (regulations.containsKey(newRegulation.hashCode() + i))
+                    i++;
+
+                regulations.put(newRegulation.hashCode() + i, newRegulation);
             }
         }
     }

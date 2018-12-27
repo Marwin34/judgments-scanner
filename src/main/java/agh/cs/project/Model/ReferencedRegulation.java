@@ -7,6 +7,7 @@ public class ReferencedRegulation {
     private int journalEntry;
     private int journalNo;
     private int numberOfReferentions;
+    private boolean fromJSON;
 
     public ReferencedRegulation(AbstractRegulation regulation){
         journalTitle = regulation.getJournalTitle();
