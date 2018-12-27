@@ -32,15 +32,9 @@ public class MonthsCommand implements ICommand {
         StringBuilder bob = new StringBuilder();
         for (int i = 0; i < 12; i++) {
             if (statistics.getJudgmentsOverMonths().containsKey(i)) {
-                bob.append(months[i])
-                        .append(": ")
-                        .append(statistics.getJudgmentsOverMonths().get(i))
-                        .append(" judgments.")
-                        .append(System.lineSeparator());
+                bob.append(String.format("%-15s %s %s%n", months[i], statistics.getJudgmentsOverMonths().get(i), "judgment(s)."));
             } else
-                bob.append(months[i])
-                        .append(": 0 judgments.")
-                        .append(System.lineSeparator());
+                bob.append(String.format("%s-15 %s%n", months[i], "0 judgment(s)."));
         }
         return bob.toString();
     }

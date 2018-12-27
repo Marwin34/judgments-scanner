@@ -2,6 +2,7 @@ package agh.cs.project;
 
 import agh.cs.project.Commands.*;
 import agh.cs.project.Model.DataLoader;
+import agh.cs.project.Model.Judgment;
 import agh.cs.project.Utilities.FileUtilities;
 import agh.cs.project.Utilities.FileWriter;
 import agh.cs.project.Model.Statistics;
@@ -88,7 +89,7 @@ public class JudgesSystem {
                     try {
                         line = terminalHandler.read();
 
-                        Pattern universalPattern = Pattern.compile("(\"\\w+\\s?\\w+\"|\\w+)");
+                        Pattern universalPattern = Pattern.compile("(\"\\w+\\s?\\w+\"|\\w+|\".*\")");
                         Matcher universalMatcher = universalPattern.matcher(line);
 
                         List<String> words = new ArrayList<>();

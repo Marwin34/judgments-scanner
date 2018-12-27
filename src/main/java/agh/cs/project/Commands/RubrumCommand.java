@@ -4,6 +4,8 @@ import agh.cs.project.Model.DataLoader;
 
 import java.util.List;
 
+import static org.fusesource.jansi.Ansi.ansi;
+
 public class RubrumCommand implements ICommand {
 
     private final DataLoader loader;
@@ -14,15 +16,20 @@ public class RubrumCommand implements ICommand {
 
     @Override
     public String execute() {
-        System.out.println("a");
-        return null;
+        return String.format("%s%n", "Nie wprowadzono argumentow. Po wiecej informacji uzyj komendy help!");
     }
 
     @Override
     public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
-        for(String signature : args){
-            bob.append(loader.getJudgments().get(signature).showRubrum());
+        for (String signature : args) {
+            if (loader.getJudgments().containsKey(signature)) {
+                bob.append(loader.getJudgments().get(signature).showRubrum());
+            } else {
+                bob.append("Can't find signature ")
+                        .append(signature)
+                        .append(System.lineSeparator());
+            }
         }
         return bob.toString();
     }

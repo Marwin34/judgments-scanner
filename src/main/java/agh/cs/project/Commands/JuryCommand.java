@@ -20,19 +20,11 @@ public class JuryCommand implements ICommand {
     public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
 
-        for(String judgesNumber : args){
-            if(statistics.getJuryStatistic().containsKey(Integer.parseInt(judgesNumber))){
-                bob
-                        .append(judgesNumber)
-                        .append(": ")
-                        .append(statistics.getJuryStatistic().get(Integer.parseInt(judgesNumber)))
-                        .append(" judgement(s).")
-                        .append(System.lineSeparator());
-            }else{
-                bob
-                        .append(judgesNumber)
-                        .append(" : 0 judgments.")
-                        .append(System.lineSeparator());
+        for (String judgesNumber : args) {
+            if (statistics.getJuryStatistic().containsKey(Integer.parseInt(judgesNumber))) {
+                bob.append(String.format("%-10s %s %s%n", judgesNumber, statistics.getJuryStatistic().get(Integer.parseInt(judgesNumber)), "judgment(s)."));
+            } else {
+                bob.append(String.format("%-10s %s%n", judgesNumber, "0 judgment(s)."));
             }
         }
         return bob.toString();

@@ -17,12 +17,18 @@ public class TerminalHandler {
 
     public TerminalHandler(List<String> commands) throws IOException{
         Completer completer = new StringsCompleter(commands);
-        terminal = TerminalBuilder.builder().system(true).build();
+
+        terminal = TerminalBuilder
+                .builder()
+                .system(true)
+                .build();
+
         LineReaderBuilder builder = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .completer(completer)
                 .appName("Judgment scanner");
          reader = builder.build();
+
          prompt = "> ";
     }
 
@@ -30,7 +36,7 @@ public class TerminalHandler {
         terminal.writer().print(message);
     }
 
-    public String read() throws IOException{
+    public String read() {
         return reader.readLine(prompt);
     }
 }

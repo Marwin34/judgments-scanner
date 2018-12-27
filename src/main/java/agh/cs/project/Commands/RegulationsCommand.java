@@ -33,8 +33,7 @@ public class RegulationsCommand implements ICommand {
 
         for (int i = 0; i < 10; i++) {
             ReferencedRegulation referencedRegulation = regulationsByReferentions.get(i);
-            String regulationStat = i + 1 + ": " + referencedRegulation + System.lineSeparator();
-            bob.append(regulationStat);
+            bob.append(String.format("%s. %s%n", i + 1, referencedRegulation));
         }
         return bob.toString();
     }

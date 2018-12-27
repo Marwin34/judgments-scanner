@@ -30,7 +30,7 @@ public class CourtsCommand implements ICommand {
 
         statistics.getCourtsStats()
                 .stream()
-                .map(court -> ansi().format("%-30s %s%n", court.toString(), court.getNumberOfJudgments()))
+                .map(court -> ansi().format("%-30s %s %s%n", court.toString(), court.getNumberOfJudgments(), "judgemnt(s)."))
                 .forEach(bob::append);
 
         return bob.toString();

@@ -7,7 +7,7 @@ public enum CourtType {
     NATIONAL_APPEAL_CHAMBER("Krajowa Izba Odwoławcza"),
     PROVINCIAL_COURT("Sąd Wojewódzki"),
     SUPER_SUPREME_COURT("Naczelny Sąd Administracyjny"),
-    DUMB("Nie istnieje!");
+    DUMB("Nie rozpoznano typu sądu");
 
     private String value;
 

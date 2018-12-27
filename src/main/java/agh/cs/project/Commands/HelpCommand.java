@@ -14,17 +14,15 @@ public class HelpCommand implements ICommand {
     @Override
     public String execute() {
 
-        StringBuilder bob = new StringBuilder("Dostepne komendy:" + System.lineSeparator());
+        StringBuilder bob = new StringBuilder();
+        bob.append("Dostepne komendy")
+                .append(System.lineSeparator());
 
         for (Map.Entry<String, ICommand> entry : commands.entrySet()) {
-            bob.append(entry.getKey())
-                    .append(": ")
-                    .append(entry.getValue().description())
-                    .append(System.lineSeparator());
+            bob.append(String.format("%-15s %s%n", entry.getKey(), entry.getValue().description()));
         }
-        bob.append("help")
-                .append(": ")
-                .append(description())
+
+        bob.append("Program obsługuje argumenty odzielone spacjami, jeśli argument zawiera spacje należy zamknąć go znakami \".")
                 .append(System.lineSeparator());
 
         return bob.toString();

@@ -23,18 +23,9 @@ public class JudgeCommand implements ICommand {
 
         for (String judge : args) {
             if (loader.getJudges().containsKey(judge)) {
-                bob
-                        .append(judge)
-                        .append(": ")
-                        .append(loader.getJudges()
-                                .get(judge).getNumberOfCases())
-                        .append(" judgement(s).")
-                        .append(System.lineSeparator());
+                bob.append(String.format("%-25s %s %s%n", judge, loader.getJudges().get(judge).getNumberOfCases(), "judgment(s)."));
             } else {
-                bob
-                        .append(judge)
-                        .append(" not exists.")
-                        .append(System.lineSeparator());
+                bob.append(String.format("%-25s %s%n", judge, "nie istnieje."));
             }
         }
 

@@ -14,19 +14,20 @@ public class ContentCommand implements ICommand {
 
     @Override
     public String execute() {
-        return null;
+        return String.format("%s%n", "Nie wprowadzono argumentow. Po wiecej informacji uzyj komendy help!");
     }
 
     @Override
     public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
-        for(String signature : args){
-            if(loader.getJudgments().containsKey(signature)){
-                bob.append(loader.getJudgments().get(signature).showJustification())
-                        .append(System.lineSeparator());
-            }else {
+        for (String signature : args) {
+            if (loader.getJudgments().containsKey(signature)) {
+                bob.append(String.format("%-15s %s%n", "Uzasadnienie orzeczenia ", signature));
+                bob.append(String.format("%s%n", loader.getJudgments().get(signature).showJustification()));
+            } else {
                 bob.append("There is no judgment specified by ")
-                        .append(signature);
+                        .append(signature)
+                        .append(System.lineSeparator());
             }
 
         }

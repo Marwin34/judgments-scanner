@@ -3,6 +3,8 @@ package agh.cs.project.Model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 
 public class Judgment {
 
@@ -56,15 +58,15 @@ public class Judgment {
     }
 
     public String showRubrum() {
-        StringBuilder bob = new StringBuilder(signature);
-        String judgmentRubrum = signature + " : " + courtType + " : " + judgmentDate + " : judges = ";
+        StringBuilder bob = new StringBuilder();
 
-        bob.append(judgmentRubrum);
-
-        for (Judge judge : judges) {
-            bob.append(judge.toString());
-            bob.append("; ");
-        }
+        bob.append(String.format("%s %-15s%n","Sygnatura:", signature));
+        bob.append(String.format("%s %-15s%n","Typ sądu:", courtType.toString()));
+        bob.append(String.format("%s %-15s%n","Data wydania:", judgmentDate));
+        bob.append(String.format("%s %-15s%n", "Skład sędziowski:",
+                judges.stream()
+                .map(Judge::getName)
+                .collect(Collectors.joining(", "))));
 
         return bob.toString();
     }
