@@ -80,11 +80,17 @@ public class Statistics {
             courtsStats.add(newCourt);
     }
 
-    private void createRegulationStats(List<AbstractRegulation> referencedRegulations){
-        for(AbstractRegulation regulation : referencedRegulations){
+    private void createRegulationStats(List<AbstractRegulation> toAdd){
+        for(AbstractRegulation regulation : toAdd){
             ReferencedRegulation newRegulation = new ReferencedRegulation(regulation);
 
-            if(regulations.containsValue(newRegulation)){ // jesli istnieje juz taki odnosnik po prostu inkrementujemy
+            if(regulations.containsKey(newRegulation.hashCode())){
+                regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
+            }else{
+                regulations.put(newRegulation.hashCode(), newRegulation);
+            }
+
+            /*if(regulations.containsValue(newRegulation)){ // jesli istnieje juz taki odnosnik po prostu inkrementujemy
                 regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
             }else{
                 for(ReferencedRegulation value : regulations.values()) { // sprawdzamy czy odnosnik nie istnieje pod innym kluczem numerycznym
@@ -94,7 +100,7 @@ public class Statistics {
                     }
                 }
                 regulations.put(newRegulation.hashCode(), newRegulation);
-            }
+            }*/
         }
     }
 

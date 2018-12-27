@@ -14,5 +14,10 @@ public class JSONRegulation extends AbstractRegulation {
     public int getJournalEntry() {
         return journalEntry;
     }
+
+    @Override
+    public int getJournalNo() {
+        return journalNo;
+    }
 }
 

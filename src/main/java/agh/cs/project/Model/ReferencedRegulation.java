@@ -1,19 +1,20 @@
 package agh.cs.project.Model;
 
-public class ReferencedRegulation {
+public class    ReferencedRegulation {
 
     private String journalTitle;
     private int journalYear;
     private int journalEntry;
-
+    private int journalNo;
     private int numberOfReferentions;
 
     public ReferencedRegulation(AbstractRegulation regulation){
         journalTitle = regulation.getJournalTitle();
         journalYear = regulation.getJournalYear();
         journalEntry = regulation.getJournalEntry();
+        journalNo = regulation.getJournalNo();
 
-        numberOfReferentions = 0;
+        numberOfReferentions = 1;
     }
 
     public void incremenetNumberOfReferentions(){
@@ -28,13 +29,15 @@ public class ReferencedRegulation {
         ReferencedRegulation that = (ReferencedRegulation) o;
 
         if (journalYear != that.journalYear) return false;
-        return journalEntry == that.journalEntry;
+        if (journalEntry != that.journalEntry) return false;
+        return journalNo == that.journalNo;
     }
 
     @Override
     public int hashCode() {
         int result = journalYear;
         result = 31 * result + journalEntry;
+        result = 31 * result + journalNo;
         return result;
     }
 
