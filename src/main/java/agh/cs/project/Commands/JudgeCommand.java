@@ -34,6 +34,6 @@ public class JudgeCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display number of judgments for specified judge. Used with arguments (judge first name and last name e.g. \"Jan Kowlaski\").";
+        return "Display number of judgments for specified judge. judge <firstname lastname> ...";
     }
 }

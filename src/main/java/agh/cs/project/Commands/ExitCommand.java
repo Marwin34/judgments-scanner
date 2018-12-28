@@ -17,6 +17,6 @@ public class ExitCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Used to exit from program. Used without arguments";
+        return "Used to exit from program. exit.";
     }
 }

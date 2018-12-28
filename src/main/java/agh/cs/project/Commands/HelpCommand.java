@@ -35,6 +35,6 @@ public class HelpCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display list of available commands. Used without arguments";
+        return "Display list of available commands. help.";
     }
 }

@@ -41,7 +41,7 @@ public class ReferencedRegulation {
 
     @Override
     public String toString() {
-        return journalTitle + ": " + numberOfReferentions;
+        return String.format("%.100s", journalTitle) + (journalTitle.length() > 100 ? "..." : "");
     }
 
     public int getNumberOfReferentions() {

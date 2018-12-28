@@ -32,6 +32,6 @@ public class JuryCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display number of cases which have specified number of judges. Used with arguments (number of judges).";
+        return "Display number of cases which have specified number of judges. jury <judges_number> ...";
     }
 }

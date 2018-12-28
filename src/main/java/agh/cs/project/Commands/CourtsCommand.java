@@ -38,6 +38,6 @@ public class CourtsCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display courts sorted by number of judgments. Used without arguments.";
+        return "Display courts sorted by number of judgments. courts.";
     }
 }

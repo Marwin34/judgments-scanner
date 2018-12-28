@@ -4,7 +4,6 @@ import agh.cs.project.Model.ReferencedRegulation;
 import agh.cs.project.Model.Statistics;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RegulationsCommand implements ICommand {
@@ -28,24 +27,17 @@ public class RegulationsCommand implements ICommand {
 
         List<ReferencedRegulation> regulationsByReferentions = new ArrayList<>(statistics.getRegulations().values());
 
-        for(ReferencedRegulation reg : regulationsByReferentions){
-            if(reg.getJournalTitle().contains("Ord"))
-                System.out.println(reg.getNumberOfReferentions());
-        }
+        regulationsByReferentions.stream()
+                .sorted(((o1, o2) -> o2.getNumberOfReferentions() - o1.getNumberOfReferentions()))
+                .limit(10)
+                .map(x -> String.format("%-6s %s%n", x.getNumberOfReferentions(), x.toString()))
+                .forEach(bob::append);
 
-        Collections.sort(regulationsByReferentions, (o1, o2) -> {
-            return o2.getNumberOfReferentions() - o1.getNumberOfReferentions(); // Descending.
-        });
-
-        for (int i = 0; i < 10; i++) {
-            ReferencedRegulation referencedRegulation = regulationsByReferentions.get(i);
-            bob.append(String.format("%s. %s%n", i + 1, referencedRegulation));
-        }
         return bob.toString();
     }
 
     @Override
     public String description() {
-        return "Display most quoted regulations. Used without arguments.";
+        return "Display most quoted regulations. regulations.";
     }
 }

@@ -36,6 +36,6 @@ public class RubrumCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display rubrum of specified judgment. Used with arguments (judgment signatures).";
+        return "Display rubrum of specified judgment. rubrum <signature> ...";
     }
 }

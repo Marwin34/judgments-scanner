@@ -36,6 +36,6 @@ public class JudgesCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display top 10 judges ordered by number of judgments thy took part in. Used without arguments.";
+        return "Display top 10 judges ordered by number of judgments thy took part in. judges.";
     }
 }

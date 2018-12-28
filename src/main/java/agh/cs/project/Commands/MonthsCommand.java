@@ -46,6 +46,6 @@ public class MonthsCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display number of judgments over months. Used without arguments.";
+        return "Display number of judgments over months. months.";
     }
 }

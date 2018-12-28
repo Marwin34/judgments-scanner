@@ -36,6 +36,6 @@ public class ContentCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display justification of specified judgemnt(s). Used with arguments (judgment signatures).";
+        return "Display justification of specified judgemnt(s). content <signature> ...";
     }
 }
