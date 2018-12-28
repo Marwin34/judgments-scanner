@@ -19,7 +19,7 @@ public class JudgesCommand implements ICommand {
     }
 
     public String execute(List<String> args) {
-        return execute();
+        return "Too many arguments! For more information use help."+ System.lineSeparator();
     }
 
     public String getTop10Judges() {
@@ -36,6 +36,6 @@ public class JudgesCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Wyswietla top 10 sedziow ze wzgledu na liczbe wydanych orzeczen";
+        return "Display top 10 judges ordered by number of judgments thy took part in. Used without arguments.";
     }
 }

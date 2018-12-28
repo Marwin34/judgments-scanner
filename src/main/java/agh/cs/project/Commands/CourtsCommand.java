@@ -20,7 +20,7 @@ public class CourtsCommand implements ICommand {
     }
 
     public String execute(List<String> args) {
-        return execute();
+        return "Too many arguments! For more information use help.";
     }
 
     public String getCourtsStatistics() {
@@ -38,6 +38,6 @@ public class CourtsCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Zwraca statystyke sadow ze wzgledu na liczbe wydanych orzeczen.";
+        return "Display courts sorted by number of judgments. Used without arguments.";
     }
 }

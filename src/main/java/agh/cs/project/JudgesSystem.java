@@ -2,7 +2,6 @@ package agh.cs.project;
 
 import agh.cs.project.Commands.*;
 import agh.cs.project.Model.DataLoader;
-import agh.cs.project.Model.Judgment;
 import agh.cs.project.Utilities.FileUtilities;
 import agh.cs.project.Utilities.FileWriter;
 import agh.cs.project.Model.Statistics;
@@ -99,13 +98,14 @@ public class JudgesSystem {
 
                         String output = "";
                         if (words.size() >= 1) {
+
                             String command = words.get(0);
                             ICommand commandExecutor = commands.getOrDefault(command, new CommandNotFound());
-
                             if (words.size() >= 2)
                                 output = commandExecutor.execute(words.subList(1, words.size()));
-                            else
+                            else{
                                 output = commandExecutor.execute();
+                            }
                         }
 
                         //TODO jansi format

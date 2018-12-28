@@ -12,11 +12,11 @@ public class ExitCommand implements ICommand {
 
     @Override
     public String execute(List<String> args) {
-        return execute();
+        return "Too many arguments! For more information use help.";
     }
 
     @Override
     public String description() {
-        return "Used to exit from program.";
+        return "Used to exit from program. Used without arguments";
     }
 }

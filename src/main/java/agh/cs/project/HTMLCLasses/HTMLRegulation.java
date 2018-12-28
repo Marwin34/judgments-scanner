@@ -16,7 +16,7 @@ public class HTMLRegulation extends AbstractRegulation {
         }
 
         if (journalTitle.contains("- t.j.")) {
-            this.journalTitle = journalTitle.replace("- - t.j.", "");
+            this.journalTitle = journalTitle.replace("- t.j.", "");
         }
 
         while(this.journalTitle.endsWith(" ") || this.journalTitle.endsWith("."))

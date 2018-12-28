@@ -34,7 +34,13 @@ public class HTMLJudgment implements IJudgment {
         courtType = CourtTypeConverter.convert(body.getElementsByClass("niezaznaczona").get(2).text().substring(4));
 
         Elements justyficationElements = body.select(".niezaznaczona > .info-list-label-uzasadnienie");
-        justification = justyficationElements.stream().map(Element::text).collect(Collectors.joining("\n"));
+        justification = justyficationElements.stream().map(Element::text).collect(Collectors.joining(System.lineSeparator()));
+
+        if(justification.contains("Uzasadnienie")){
+            justification = justification.substring(justification.indexOf("Uzasadnienie") + 13);
+        }else {
+            justification = "";
+        }
 
         Element judgeContainer = body.select(".niezaznaczona > .info-list-value").get(3);
         List<String> HTMLjudges = Arrays.stream(judgeContainer.html().split("<br>")).collect(Collectors.toList());
@@ -66,10 +72,6 @@ public class HTMLJudgment implements IJudgment {
                     String parts[] = matcher1.group().split(" ");
                     jounralYear = Integer.parseInt(parts[0]);
                     journalEntry = Integer.parseInt(parts[4]);
-                }else{
-                   // System.out.println(journalTitle);
-                    jounralYear = journalTitle.length() * 31;
-                    journalEntry = jounralYear * 17;
                 }
                 referencedRegulations.add(new HTMLRegulation(journalTitle, jounralYear, journalEntry));
             }

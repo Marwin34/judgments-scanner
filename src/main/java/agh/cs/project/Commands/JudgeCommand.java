@@ -14,7 +14,7 @@ public class JudgeCommand implements ICommand {
 
     @Override
     public String execute() {
-        return "You need to specify judge." + System.lineSeparator();
+        return "Missing arguments!   Use help for more information." + System.lineSeparator();
     }
 
     @Override
@@ -34,6 +34,6 @@ public class JudgeCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display number of judgments for specified judge.";
+        return "Display number of judgments for specified judge. Used with arguments (judge first name and last name e.g. \"Jan Kowlaski\").";
     }
 }

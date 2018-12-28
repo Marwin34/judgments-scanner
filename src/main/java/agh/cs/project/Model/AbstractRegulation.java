@@ -16,4 +16,14 @@ public abstract class AbstractRegulation {
     public int getJournalNo() {
         return journalNo;
     }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ReferencedRegulation that = (ReferencedRegulation) o;
+
+        System.out.println(journalTitle + " " + that.getJournalTitle());
+
+        return journalTitle.equals(that.getJournalTitle());
+    }
 }

@@ -39,4 +39,8 @@ public class TerminalHandler {
     public String read() {
         return reader.readLine(prompt);
     }
+
+    public String getHistory(){
+        return reader.getHistory().toString();
+    }
 }

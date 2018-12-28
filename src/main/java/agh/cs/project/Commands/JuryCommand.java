@@ -13,7 +13,7 @@ public class JuryCommand implements ICommand {
 
     @Override
     public String execute() {
-        return "Specify number of judges." + System.lineSeparator();
+        return "Too many arguments! For more information use help." + System.lineSeparator();
     }
 
     @Override
@@ -32,6 +32,6 @@ public class JuryCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display number of cases which have specified number of judges.";
+        return "Display number of cases which have specified number of judges. Used with arguments (number of judges).";
     }
 }

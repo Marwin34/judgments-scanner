@@ -14,7 +14,7 @@ public class ContentCommand implements ICommand {
 
     @Override
     public String execute() {
-        return String.format("%s%n", "Nie wprowadzono argumentow. Po wiecej informacji uzyj komendy help!");
+        return String.format("%s%n", "Missing arguments! For more information use help.");
     }
 
     @Override
@@ -36,6 +36,6 @@ public class ContentCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Wyswietla uzasadnienie danego orzeczenia.";
+        return "Display justification of specified judgemnt(s). Used with arguments (judgment signatures).";
     }
 }

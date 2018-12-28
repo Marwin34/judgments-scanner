@@ -7,9 +7,8 @@ public class ReferencedRegulation {
     private int journalEntry;
     private int journalNo;
     private int numberOfReferentions;
-    private boolean fromJSON;
 
-    public ReferencedRegulation(AbstractRegulation regulation){
+    public ReferencedRegulation(AbstractRegulation regulation) {
         journalTitle = regulation.getJournalTitle();
         journalYear = regulation.getJournalYear();
         journalEntry = regulation.getJournalEntry();
@@ -18,7 +17,7 @@ public class ReferencedRegulation {
         numberOfReferentions = 1;
     }
 
-    public void incremenetNumberOfReferentions(){
+    public void incremenetNumberOfReferentions() {
         numberOfReferentions++;
     }
 
@@ -29,9 +28,7 @@ public class ReferencedRegulation {
 
         ReferencedRegulation that = (ReferencedRegulation) o;
 
-        if (journalYear != that.journalYear) return false;
-        if (journalEntry != that.journalEntry) return false;
-        return journalNo == that.journalNo;
+        return journalTitle != null ? journalTitle.equals(that.journalTitle) : that.journalTitle == null;
     }
 
     @Override
@@ -43,7 +40,7 @@ public class ReferencedRegulation {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return journalTitle + ": " + numberOfReferentions;
     }
 

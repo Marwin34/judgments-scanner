@@ -89,30 +89,23 @@ public class Statistics {
 
             boolean found = false;
 
-            if (regulation.getClass().equals(HTMLRegulation.class)) { // jesli pochodzi z htmla to postepowanie sie rozni, wyszukujemy tylko po wartosci
-                for (ReferencedRegulation value : regulations.values()) {
-                    if (value.getJournalTitle().equals(newRegulation.getJournalTitle())) {
-                        regulations.get(value.hashCode()).incremenetNumberOfReferentions();
+            if (regulation.getClass().equals(HTMLRegulation.class)) {
+                for(Map.Entry<Integer, ReferencedRegulation> reg : regulations.entrySet()) {
+                    if(reg.getValue().equals(newRegulation)){
+                        reg.getValue().incremenetNumberOfReferentions();
                         found = true;
                         break;
                     }
                 }
-            } else {
-                if (regulations.containsValue(newRegulation)) {
+            }else{
+                if(regulations.containsValue(newRegulation)){
                     regulations.get(newRegulation.hashCode()).incremenetNumberOfReferentions();
                     found = true;
                 }
             }
-            if (!found) {
-                if (regulations.containsKey(newRegulation.hashCode()))
-                    regulations.put(newRegulation.hashCode() + 1, newRegulation);
 
-                int i = 0;
-
-                while (regulations.containsKey(newRegulation.hashCode() + i))
-                    i++;
-
-                regulations.put(newRegulation.hashCode() + i, newRegulation);
+            if(!found ){
+                regulations.putIfAbsent(newRegulation.hashCode(), newRegulation);
             }
         }
     }

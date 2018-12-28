@@ -41,11 +41,11 @@ public class MonthsCommand implements ICommand {
 
     @Override
     public String execute(List<String> args) {
-        return "This command don't need arguments.";
+        return "Too many arguments! For more information use help." + System.lineSeparator();
     }
 
     @Override
     public String description() {
-        return "Display number of judgments over months.";
+        return "Display number of judgments over months. Used without arguments.";
     }
 }

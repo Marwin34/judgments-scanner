@@ -20,13 +20,19 @@ public class RegulationsCommand implements ICommand {
     }
 
     public String execute(List<String> args) {
-        return execute();
+        return "Too many argument! For more information use help." + System.lineSeparator();
     }
 
     public String getTop10Regulations() {
         StringBuilder bob = new StringBuilder();
 
         List<ReferencedRegulation> regulationsByReferentions = new ArrayList<>(statistics.getRegulations().values());
+
+        for(ReferencedRegulation reg : regulationsByReferentions){
+            if(reg.getJournalTitle().contains("Ord"))
+                System.out.println(reg.getNumberOfReferentions());
+        }
+
         Collections.sort(regulationsByReferentions, (o1, o2) -> {
             return o2.getNumberOfReferentions() - o1.getNumberOfReferentions(); // Descending.
         });
@@ -40,6 +46,6 @@ public class RegulationsCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Display most quoted regulations.";
+        return "Display most quoted regulations. Used without arguments.";
     }
 }

@@ -16,7 +16,7 @@ public class RubrumCommand implements ICommand {
 
     @Override
     public String execute() {
-        return String.format("%s%n", "Nie wprowadzono argumentow. Po wiecej informacji uzyj komendy help!");
+        return String.format("%s%n", "Missing arguments! For more information use help.");
     }
 
     @Override
@@ -36,6 +36,6 @@ public class RubrumCommand implements ICommand {
 
     @Override
     public String description() {
-        return "Wyswietla metryke danej sprawy.";
+        return "Display rubrum of specified judgment. Used with arguments (judgment signatures).";
     }
 }
