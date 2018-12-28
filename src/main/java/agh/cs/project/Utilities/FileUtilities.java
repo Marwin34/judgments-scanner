@@ -4,7 +4,7 @@ import java.io.File;
 
 public  class FileUtilities {
     public static boolean isStandardPath(String path) {
-        return (path.matches("^(\\./)?(\\w+/{1})*\\w+\\.txt$")) || (path.matches("\\w*"));
+        return (path.matches("^(\\./\\w*)?(/\\w+)*$")) || (path.matches("\\w*") || path.matches("\\."));
     }
 
     public static boolean isNotEmpty(String path) {

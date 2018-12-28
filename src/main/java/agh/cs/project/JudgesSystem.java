@@ -48,20 +48,21 @@ public class JudgesSystem {
                 if (FileUtilities.isStandardPath(args[0]) && FileUtilities.isNotEmpty(args[0])) {
                     inputPath = args[0];
                 } else {
-                    System.out.println("Folder with data doesn't exits or is empty.");
+                    System.out.println("Folder with data doesn't exits or is empty. Path: " + args[0]);
                     System.exit(0);
                 }
-            } else inputPath = ".";
+            } else {
+                System.out.println("You need to specify folder with data.");
+                System.exit(0);
+            }
 
             if (args.length >= 2) {
-                if (FileUtilities.isStandardPath(args[1])) {
+                String pathToDirectory = ".";
 
-                    String pathToDirectory = ".";
-
-                    if (args[1].lastIndexOf("/") > -1) {
-                        pathToDirectory = args[1].substring(0, args[1].lastIndexOf("/"));
-                    }
-
+                if (args[1].lastIndexOf("/") > -1) {
+                    pathToDirectory = args[1].substring(0, args[1].lastIndexOf("/"));
+                }
+                if (FileUtilities.isStandardPath(pathToDirectory)) {
                     if (FileUtilities.checkIfFileExists(new File(pathToDirectory))
                             && FileUtilities.checkIfFileIsDirectory(new File(pathToDirectory))) {
                         writeMode = true;
