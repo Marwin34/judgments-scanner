@@ -4,8 +4,6 @@ import agh.cs.project.Model.DataLoader;
 
 import java.util.List;
 
-import static org.fusesource.jansi.Ansi.ansi;
-
 public class RubrumCommand implements ICommand {
 
     private final DataLoader loader;

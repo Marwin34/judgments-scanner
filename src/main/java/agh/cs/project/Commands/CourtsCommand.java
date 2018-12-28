@@ -4,8 +4,6 @@ import agh.cs.project.Model.Statistics;
 
 import java.util.List;
 
-import static org.fusesource.jansi.Ansi.ansi;
-
 public class CourtsCommand implements ICommand {
 
     private final Statistics statistics;
@@ -30,7 +28,7 @@ public class CourtsCommand implements ICommand {
 
         statistics.getCourtsStats()
                 .stream()
-                .map(court -> ansi().format("%-30s %s %s%n", court.toString(), court.getNumberOfJudgments(), "judgemnt(s)."))
+                .map(court -> String.format("%-30s %s %s%n", court.toString(), court.getNumberOfJudgments(), "judgemnt(s)."))
                 .forEach(bob::append);
 
         return bob.toString();
