@@ -22,7 +22,7 @@ public class HelpCommand implements ICommand {
             bob.append(String.format("%-15s %s%n", entry.getKey(), entry.getValue().description()));
         }
 
-        bob.append("To specify arguments u need to separate command and arguments with space. If u need to use argument containing white symbols u have to cover it with \".")
+        bob.append("To specify arguments u need to separate command and arguments with space. If u need to use argument containing white symbols u have to quote it.")
                 .append(System.lineSeparator());
 
         return bob.toString();
