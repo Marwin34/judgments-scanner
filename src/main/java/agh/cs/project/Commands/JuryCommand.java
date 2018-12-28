@@ -3,6 +3,7 @@ package agh.cs.project.Commands;
 import agh.cs.project.Model.Statistics;
 
 import java.util.List;
+import java.util.Map;
 
 public class JuryCommand implements ICommand {
     private final Statistics statistics;
@@ -13,25 +14,25 @@ public class JuryCommand implements ICommand {
 
     @Override
     public String execute() {
-        return "Too many arguments! For more information use help." + System.lineSeparator();
-    }
 
-    @Override
-    public String execute(List<String> args) {
         StringBuilder bob = new StringBuilder();
+        bob.append(String.format("%s%n","Jury statistics:"));
 
-        for (String judgesNumber : args) {
-            if (statistics.getJuryStatistic().containsKey(Integer.parseInt(judgesNumber))) {
-                bob.append(String.format("%-4s %s %s%n", judgesNumber, statistics.getJuryStatistic().get(Integer.parseInt(judgesNumber)), "judgment(s)."));
-            } else {
-                bob.append(String.format("%-4s %s%n", judgesNumber, "0 judgment(s)."));
-            }
+
+        for(Map.Entry<Integer, Integer> datas : statistics.getJuryStatistic().entrySet()){
+            bob.append(String.format("%-3s judge(s) took part in %5s judgment(s).%n", datas.getKey(), datas.getValue()));
         }
+
         return bob.toString();
     }
 
     @Override
+    public String execute(List<String> args) {
+        return "Too many arguments! For more information use help." + System.lineSeparator();
+    }
+
+    @Override
     public String description() {
-        return "Display number of cases which have specified number of judges. jury <judges_number> ...";
+        return "Display number of cases which have specified number of judges. jury.";
     }
 }
