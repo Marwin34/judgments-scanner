@@ -14,7 +14,7 @@ public class JudgeCommand implements ICommand {
 
     @Override
     public String execute() {
-        return "Missing arguments!   Use help for more information." + System.lineSeparator();
+        return "Missing arguments! Use help for more information." + System.lineSeparator();
     }
 
     @Override
