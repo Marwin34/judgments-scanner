@@ -23,10 +23,10 @@ public class Judgment {
 
         this.judges = new ArrayList<>();
 
-        List<AbstractJudge> JSONJudges = judgment.getJudges();
+        List<AbstractJudge> abstractJudges = judgment.getJudges();
 
-        for (AbstractJudge JSONjudge : JSONJudges) {
-            this.judges.add(create(JSONjudge, judges));
+        for (AbstractJudge abstractJudge : abstractJudges) {
+            this.judges.add(create(abstractJudge, judges));
         }
     }
 
@@ -58,17 +58,14 @@ public class Judgment {
     }
 
     public String showRubrum() {
-        StringBuilder bob = new StringBuilder();
 
-        bob.append(String.format("%s %-15s%n","Sygnatura:", signature));
-        bob.append(String.format("%s %-15s%n","Typ sądu:", courtType.toString()));
-        bob.append(String.format("%s %-15s%n","Data wydania:", judgmentDate));
-        bob.append(String.format("%s %-15s%n", "Skład sędziowski:",
-                judges.stream()
-                .map(Judge::getName)
-                .collect(Collectors.joining(", "))));
-
-        return bob.toString();
+        return String.format("%s %-15s%n", "Sygnatura:", signature) +
+                String.format("%s %-15s%n", "Typ sądu:", courtType.toString()) +
+                String.format("%s %-15s%n", "Data wydania:", judgmentDate) +
+                String.format("%s %-15s%n", "Skład sędziowski:",
+                        judges.stream()
+                                .map(Judge::toString)
+                                .collect(Collectors.joining("; ")));
     }
 
     public String showJustification() {

@@ -86,8 +86,6 @@ public class HTMLJudgment implements IJudgment {
 
         if (array.size() > 1) {
             roles.addAll(Arrays.stream(array.get(1).split(" ")).collect(Collectors.toList()));
-        } else {
-            roles.add("barak");
         }
         judges.add(new HTMLJudge(name, roles));
     }

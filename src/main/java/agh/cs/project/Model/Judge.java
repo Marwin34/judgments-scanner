@@ -22,19 +22,27 @@ public class Judge{
 
     @Override
     public String toString(){
-        StringBuilder bob = new StringBuilder(name + " roles: "); // the builder
+        StringBuilder bob = new StringBuilder(name); // the builder
 
-        for(String role : roles){
-            bob.append(role);
-            bob.append(", ");
+        if(roles.size() > 0){
+            bob.append(" (");
+            for(String role : roles){
+                if(role.equals("PRESIDING_JUDGE"))
+                    bob.append("przewodniczacy składu sędziowskiego");
+                else if(role.equals("REPORTING_JUDGE"))
+                    bob.append("sędzia sprawozdawca");
+                else if(role.equals("REASONS_FOR_JUDGMENT_AUTHOR"))
+                    bob.append("autor uzasadnienia");
+                else
+                    bob.append(role);
+                bob.append(", ");
+            }
+            if(bob.lastIndexOf(",") > 0) {
+                bob.deleteCharAt(bob.lastIndexOf(","));
+                bob.deleteCharAt(bob.lastIndexOf(" "));
+            }
+            bob.append(")");
         }
-        if(bob.lastIndexOf(",") > 0) {
-            bob.deleteCharAt(bob.lastIndexOf(","));
-            bob.deleteCharAt(bob.lastIndexOf(" "));
-        }
-
-        bob.append(", number of cases = ");
-        bob.append(numberOfCases);
 
         return bob.toString();
     }
