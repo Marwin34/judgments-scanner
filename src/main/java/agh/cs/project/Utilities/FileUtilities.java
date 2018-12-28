@@ -4,7 +4,6 @@ import java.io.File;
 
 public  class FileUtilities {
     public static boolean isStandardPath(String path) {
-        System.out.println(path);
         return path.matches("^((\\./\\w+)|(\\.\\./\\w+))?(/\\w+)*$") || path.matches("^\\w*$") || path.matches("^\\.$");
     }
 
