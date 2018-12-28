@@ -22,9 +22,9 @@ public class JuryCommand implements ICommand {
 
         for (String judgesNumber : args) {
             if (statistics.getJuryStatistic().containsKey(Integer.parseInt(judgesNumber))) {
-                bob.append(String.format("%-10s %s %s%n", judgesNumber, statistics.getJuryStatistic().get(Integer.parseInt(judgesNumber)), "judgment(s)."));
+                bob.append(String.format("%-4s %s %s%n", judgesNumber, statistics.getJuryStatistic().get(Integer.parseInt(judgesNumber)), "judgment(s)."));
             } else {
-                bob.append(String.format("%-10s %s%n", judgesNumber, "0 judgment(s)."));
+                bob.append(String.format("%-4s %s%n", judgesNumber, "0 judgment(s)."));
             }
         }
         return bob.toString();
