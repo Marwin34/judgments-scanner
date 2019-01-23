@@ -89,7 +89,7 @@ public class JudgesSystem {
                     try {
                         line = terminalHandler.read();
 
-                        Pattern universalPattern = Pattern.compile("(\"\\w+\\s?\\w+\"|\\w+|\".*\")");
+                        Pattern universalPattern = Pattern.compile("\\w+|\"[^\"]*\"");
                         Matcher universalMatcher = universalPattern.matcher(line);
 
                         List<String> words = new ArrayList<>();
